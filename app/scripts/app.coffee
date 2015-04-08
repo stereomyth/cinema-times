@@ -4,7 +4,7 @@ angular.module 'Cineworld', [
     'ngAnimate', 'ngCookies' 
     'ngResource', 'ngRoute' 
     'ngSanitize', 'ngTouch'
-    'services'
+    'services', 'angular-storage'
   ]
   .config ($routeProvider) ->
     $routeProvider
