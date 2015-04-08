@@ -129,9 +129,9 @@ module.exports = function (grunt) {
     coffee: { 
       dist: {
         expand: true,
-        flatten: true,
+        // flatten: true,
         cwd: '<%= yeoman.app %>/scripts/',
-        src: ['*.coffee'],
+        src: ['{,*/}*.coffee'],
         dest: '.tmp/scripts/',
         ext: '.js'
       }
@@ -464,6 +464,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'wiredep',
+      'coffee',
       'concurrent:server',
       'autoprefixer:server',
       'connect:livereload',
