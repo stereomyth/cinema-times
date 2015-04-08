@@ -7,7 +7,7 @@
  * # AboutCtrl
  * Controller of the codeApp
  */
-angular.module('codeApp')
+angular.module('Cineworld')
   .controller('AboutCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
