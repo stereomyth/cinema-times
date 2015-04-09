@@ -1,0 +1,20 @@
+<div class="film" data-edi="{{d.edi}}">
+	<div class="poster">
+		<img ng-src="{{d.poster_url}}" alt="">
+	</div>
+	<div class="title"><h4>{{d.title}}</h4></div>
+	<div class="times">
+		<span class="screening" ng-repeat="show in times.performances">
+			{{show.time}}
+			<!-- <a href="{{show.booking_url}}">{{show.time}}</a> -->
+		</span>
+	</div>
+	<!-- <div>
+		<span ng-show="{{d.imax}}">IMAX</span>
+		<span ng-show="{{d['3D']}}">3D</span>
+	</div> -->
+	<div>
+		<button class="btn">Hide</button>
+		<!-- <button class="btn">Book</button> -->
+	</div>
+</div>

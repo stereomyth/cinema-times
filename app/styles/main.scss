@@ -6,7 +6,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 .film {
 	// border-bottom: 1px solid tomato;
 	overflow: auto;
-	margin-bottom: 12px;
+	margin: 12px 0;
 }
 
 .poster {
@@ -19,4 +19,8 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 .title {
 	
+}
+
+.screening {
+	// display: inline-block;
 }
