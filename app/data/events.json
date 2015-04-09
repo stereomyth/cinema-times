@@ -1,0 +1,13 @@
+{
+	"events":[
+		{"code":"metopera", "name":"MET Opera"},
+		{"code":"Ntlive",   "name":"National Theatre"},
+		{"code":"EOS",      "name":"Exhibition On Screen"},
+		{"code":"ROH",      "name":"Royal Opera House"},
+		{"code":"BBL",      "name":"Bolshoi Ballet Live"},
+		{"code":"GSCI",     "name":"IMAX Documentaries"},
+		{"code":"RSC",      "name":"Royal Shakespeare Company"},
+		{"code":"ENO",      "name":"English National Opera"},
+		{"code":"GOS",      "name":"Globe On Screen"}
+	]
+}

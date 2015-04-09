@@ -1,0 +1,19 @@
+{
+	"performances":[
+		{"time":"10:40","available":false, "type":"reg", "ad":false, "subtitled":false, "ss":false, 
+			"booking_url":"http://www.cineworld.co.uk/booking?performance=3397462&seats=STANDARD&key=TNk2:R3P"},
+		{"time":"12:20","available":true,  "type":"reg", "ad":true,  "subtitled":false, "ss":false, 
+			"booking_url":"http://www.cineworld.co.uk/booking?performance=3397472&seats=STANDARD&key=TNk2:R3P"},
+		{"time":"13:10","available":true,  "type":"reg", "ad":false, "subtitled":false, "ss":false, 
+			"booking_url":"http://www.cineworld.co.uk/booking?performance=3397475&seats=STANDARD&key=TNk2:R3P"},
+		{"time":"14:40","available":true,  "type":"reg", "ad":true,  "subtitled":false, "ss":false, 
+			"booking_url":"http://www.cineworld.co.uk/booking?performance=3397483&seats=STANDARD&key=TNk2:R3P"},
+		{"time":"15:30","available":true,  "type":"reg", "ad":false, "subtitled":false, "ss":false, 
+			"booking_url":"http://www.cineworld.co.uk/booking?performance=3397488&seats=STANDARD&key=TNk2:R3P"},
+		{"time":"17:10","available":true,  "type":"reg", "ad":true,  "subtitled":false, "ss":false, 
+			"booking_url":"http://www.cineworld.co.uk/booking?performance=3397495&seats=STANDARD&key=TNk2:R3P"}
+	],
+	"legends":[
+		{"code":"reg","description":"Regular"}
+	]
+}
