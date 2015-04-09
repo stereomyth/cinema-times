@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module 'Cineworld'
-  .controller 'MainCtrl', ($scope, $filter, Local, store) ->
+  .controller 'MainCtrl', ($scope, $filter, Local, Api, store) ->
 
     $scope.cinemas = Local.get filename: 'cinemas'
 
@@ -11,6 +11,8 @@ angular.module 'Cineworld'
 
     $scope.date = new Date()
     $scope.date = $filter('date') $scope.date, 'yyyyMMdd'
+
+    $scope.events = Api.get api: 'events'
 
     $scope.$watch 'selected', (id) ->
       if id?
