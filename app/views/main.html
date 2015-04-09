@@ -1,10 +1,8 @@
 
-<!-- {{cinemas}} -->
-<!-- 
-<select name="cinemas" id="" >
-  <option value="{{ cinema.id }}" ng-repeat="cinema in cinemas.cinemas">{{ cinema.name }}</option>
-</select> -->
-
-<select ng-model="selected" ng-options="cinema.id as cinema.name for cinema in cinemas.cinemas">
-	<option value="">-- choose cinema --</option>
-</select>
+<div class="film" data-edi="{{film.edi}}" ng-repeat="film in films.films">
+  <!-- <div class="poster"> -->
+    <!-- <img ng-src="{{film.poster_url}}" alt=""> -->
+  <!-- </div> -->
+  <div class="title">{{film.title}}</div>
+  <div class="times"></div>
+</div>
