@@ -10,7 +10,7 @@ angular.module 'services', []
     $resource 'http://www.cineworld.com/api/:qb/:api', {key: $key, callback: 'JSON_CALLBACK'}, 
       { get: { method: 'JSONP' } }
 
-  .factory 'Data', (Api, store) ->
+  .factory 'Data', (Api, store, currDate) ->
 
     get: (params) ->
       paramString = JSON.stringify params
@@ -23,11 +23,21 @@ angular.module 'services', []
 
       else
 
-        console.log 'calling api'
+        # console.log "calling #{params.api} api"
 
         if params.api isnt 'categories' and params.api isnt 'events'
           params.qb = 'quickbook'
 
+        if params.api is 'cinemas' or params.api is 'films'
+          params.full = true
+
+        if params.api is 'films' or params.api is 'performances'
+          params.cinema = store.get 'cinema-id'
+          params.date = currDate
+
+        console.log params
+
         return Api.get params, (response) ->
-          store.set paramString, response;
+          response.params = params
+          store.set paramString, response
   
