@@ -1,5 +1,8 @@
 angular.module 'services', []
 
+  .factory 'currDate', ($filter) ->
+    return $filter('date') new Date(), 'yyyyMMdd' 
+
   .factory 'Local', ($resource) -> 
     $resource 'data/:filename.json', {}
 
