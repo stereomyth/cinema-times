@@ -55,5 +55,5 @@ angular.module 'Cineworld', [
       # return rejection
 
   .config ($httpProvider) ->
-    $httpProvider.interceptors.push('jsonpIntercept');
+    $httpProvider.interceptors.push 'jsonpIntercept'
   

@@ -2,7 +2,7 @@
 
 angular.module 'Cineworld'
 
-  .directive 'film', (Local) ->
+  .directive 'film', (Data) ->
 
     templateUrl: '/partials/film.html'
 
@@ -11,7 +11,7 @@ angular.module 'Cineworld'
 
     link: (scope, element) ->
 
-      scope.times = Local.get filename: 'sponge'
+      scope.times = Data.get api: 'performances', film: scope.d.edi
 
 
 

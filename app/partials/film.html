@@ -1,4 +1,4 @@
-<div class="film" data-edi="{{d.edi}}">
+<div class="film" data-edi="{{d.edi}}" ng-show="times.performances.length">
 	<div class="poster">
 		<img ng-src="{{d.poster_url}}" alt="">
 	</div>
@@ -14,7 +14,7 @@
 		<span ng-show="{{d['3D']}}">3D</span>
 	</div> -->
 	<div>
-		<button class="btn">Hide</button>
+		<!-- <button class="btn">Hide</button> -->
 		<!-- <button class="btn">Book</button> -->
 	</div>
 </div>
