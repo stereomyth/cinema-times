@@ -1,1 +1,16 @@
-<film data-d="film" ng-repeat="film in films.films"></film>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6">
+			flms
+			<film data-d="film" ng-repeat="film in films.films"></film>
+		</div>
+		<div class="col-sm-6">
+			<options></options>
+			<br>
+			<br>
+			<br>
+			{{eventFilms}}
+			{{eventFilter}}
+		</div>
+	</div>
+</div>

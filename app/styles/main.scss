@@ -3,6 +3,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "../../bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+body {
+	background-color: #5d5d5d;
+	color: white;
+	word-wrap:break-word;
+}
+
 .film {
 	// border-bottom: 1px solid tomato;
 	overflow: auto;
@@ -23,4 +29,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 .screening {
 	// display: inline-block;
+}
+
+.pow {
+	border: 1px solid tomato;
+}
+
+label {
+	font-weight: normal;
 }
