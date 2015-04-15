@@ -32,8 +32,8 @@ angular.module 'services', []
           params.full = true
 
         if params.api is 'films' or params.api is 'performances'
-          params.cinema = store.get 'cinema-id'
-          params.date = currDate
+          params.cinema = store.get 'options-cinema'
+          # params.date = currDate
 
         console.log params
 
