@@ -1,7 +1,8 @@
-<div class="film" data-edi="{{d.edi}}" ng-show="times.performances.length">
-	<div class="poster">
+<div class="film" data-edi="{{d.edi}}">
+<!-- <div class="film" data-edi="{{d.edi}}" ng-class="{'pow':}" ng-show="times.performances.length"> -->
+	<!-- <div class="poster">
 		<img ng-src="{{d.poster_url}}" alt="">
-	</div>
+	</div> -->
 	<div class="title"><h4>{{d.title}}</h4></div>
 	<div class="times">
 		<span class="screening" ng-repeat="show in times.performances">
@@ -9,6 +10,7 @@
 			<!-- <a href="{{show.booking_url}}">{{show.time}}</a> -->
 		</span>
 	</div>
+	<div>{{d.edi}}</div>
 	<!-- <div>
 		<span ng-show="{{d.imax}}">IMAX</span>
 		<span ng-show="{{d['3D']}}">3D</span>
