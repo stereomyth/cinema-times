@@ -9,14 +9,12 @@ import { WebDevTecService } from '../app/components/webDevTec/webDevTec.service'
 import { NavbarDirective } from '../app/components/navbar/navbar.directive';
 import { MalarkeyDirective } from '../app/components/malarkey/malarkey.directive';
 
-angular.module('cineworld', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ngResource', 'ngRoute', 'toastr'])
-  .constant('malarkey', malarkey)
-  .constant('moment', moment)
+angular.module('cineworld', [
+    'ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ngResource', 'ngRoute'
+  ])
   .config(config)
   .config(routerConfig)
   .run(runBlock)
-  .service('githubContributor', GithubContributorService)
-  .service('webDevTec', WebDevTecService)
   .controller('MainController', MainController)
   .directive('acmeNavbar', NavbarDirective)
-  .directive('acmeMalarkey', MalarkeyDirective);
+;

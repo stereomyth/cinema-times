@@ -1,13 +1,7 @@
 export class MainController {
-  constructor ($timeout, webDevTec, toastr) {
+  constructor () {
     'ngInject';
 
-    this.awesomeThings = [];
-    this.classAnimation = '';
-    this.creationDate = 1449165316121;
-    this.toastr = toastr;
-
-    this.activate($timeout, webDevTec);
   }
 
   activate($timeout, webDevTec) {
@@ -20,13 +14,9 @@ export class MainController {
   getWebDevTec(webDevTec) {
     this.awesomeThings = webDevTec.getTec();
 
+
     angular.forEach(this.awesomeThings, (awesomeThing) => {
       awesomeThing.rank = Math.random();
     });
-  }
-
-  showToastr() {
-    this.toastr.info('Fork <a href="https://github.com/Swiip/generator-gulp-angular" target="_blank"><b>generator-gulp-angular</b></a>');
-    this.classAnimation = '';
   }
 }
