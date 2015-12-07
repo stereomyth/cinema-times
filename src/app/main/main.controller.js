@@ -1,22 +1,14 @@
 export class MainController {
-  constructor () {
+  constructor ($scope, $log, api) {
     'ngInject';
 
+    $scope.cheese = 'hello';
+
+    $scope.films = api.jp();
   }
 
-  activate($timeout, webDevTec) {
-    this.getWebDevTec(webDevTec);
-    $timeout(() => {
-      this.classAnimation = 'rubberBand';
-    }, 4000);
+  exampleFunction() {
+    //function 
   }
 
-  getWebDevTec(webDevTec) {
-    this.awesomeThings = webDevTec.getTec();
-
-
-    angular.forEach(this.awesomeThings, (awesomeThing) => {
-      awesomeThing.rank = Math.random();
-    });
-  }
 }
