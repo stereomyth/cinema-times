@@ -1,7 +1,9 @@
 'use strict';
 
-export function config ($logProvider) {
+export function config ($logProvider, $httpProvider) {
   'ngInject';
   // Enable log
   $logProvider.debugEnabled(true);
+  $httpProvider.interceptors.push('dotInjector');
+
 }
