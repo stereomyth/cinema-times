@@ -3,6 +3,7 @@ import { routerConfig } from './index.route';
 import { runBlock } from './index.run';
 import { MainController } from './main/main.controller';
 import { NavbarDirective } from '../app/components/navbar/navbar.directive';
+import { FilmsApi } from '../app/components/api.service';
 import { DotInjector } from '../app/components/dotInjector.factory';
 
 angular.module('cineworld', [
@@ -13,5 +14,6 @@ angular.module('cineworld', [
   .run(runBlock)
   .controller('MainController', MainController)
   .directive('acmeNavbar', NavbarDirective)
+  .service('api', FilmsApi)
   .factory('dotInjector', DotInjector)
 ;
