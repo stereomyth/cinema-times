@@ -1,10 +1,11 @@
 export class MainController {
-  constructor ($scope, $log, api) {
+  constructor ($scope, $log, $http, $window, $q, api) {
     'ngInject';
 
-    $scope.cheese = 'hello';
+    api.get('test').then(function (response) {
+      $scope.result = response;
+    });
 
-    $scope.films = api.jp();
   }
 
   exampleFunction() {
