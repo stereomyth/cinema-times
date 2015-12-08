@@ -6,7 +6,7 @@ import { NavbarDirective } from '../app/components/navbar/navbar.directive';
 import { FilmsApi } from '../app/components/api.service';
 
 angular.module('cineworld', [
-    'ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ngResource', 'ngRoute'
+    'ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ngResource', 'ngRoute', 'ngStorage'
   ])
   .config(config)
   .config(routerConfig)
