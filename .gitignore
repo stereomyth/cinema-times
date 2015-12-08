@@ -6,3 +6,4 @@ coverage/
 .tmp/
 dist/
 version-0/
+key.js
