@@ -1,6 +1,5 @@
 'use strict';
 
-export function runBlock ($log) {
+export function runBlock () {
   'ngInject';
-  $log.debug('runBlock end');
 }
