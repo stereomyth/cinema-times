@@ -8,17 +8,25 @@ export class FilmsApi {
     'ngInject';
 
     return {
-      get: function (name, params) {
+
+      list: [],
+
+      get: function (route, params) {
+        let self = this;
         return $q(function(resolve, reject) {
-          let api = 'http://www.cineworld.com/api/quickbook/cinemas',
+          let api = 'http://www.cineworld.com/api/quickbook/' + route,
+            slotNum = self.findSlot(),
+            name = 'apiCallback' + slotNum,
             config = {params: {key: apiKey, callback: name}};
 
           Object.assign(config.params, params);
 
           // create global function to catch JSONP function
           $window[name] = function (json) {
-            // $log.debug(json);
             resolve(json);
+
+            // set slot to free
+            self.list[slotNum] = true;
 
             // kill function after use
             delete $window[name];
@@ -27,14 +35,31 @@ export class FilmsApi {
           // http request to api endpoint
           $http.jsonp(api, config)
             .then(function (response) {
-              // $log.debug('http success');
+              $log.debug('http success', response);
             }, function (response) {
-              reject();
-              $log.debug('http error');
+              // currently always errors with 404 but still returns JSONP?
+              // reject();
+              // $log.debug('http error', response);
             });
 
         });
+      },
+
+      findSlot: function () {
+        // find next open slot for global function 
+        
+        let nextFreeSlot = this.list.findIndex(function (e) { return e; });
+
+        if (nextFreeSlot === -1) {
+          nextFreeSlot = this.list.length;
+          this.list.push(false);
+        } else {
+          this.list[nextFreeSlot] = false;
+        }
+
+        return nextFreeSlot;
       }
+
     };
 
   }

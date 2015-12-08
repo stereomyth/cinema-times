@@ -1,8 +1,8 @@
 export class MainController {
-  constructor ($scope, $log, $http, $window, $q, api) {
+  constructor ($scope, $log, api) {
     'ngInject';
 
-    api.get('test').then(function (response) {
+    api.get('cinemas').then(function (response) {
       $scope.result = response;
     });
 
