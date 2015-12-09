@@ -6,7 +6,7 @@
 		</div>
 		<div class="col-sm-6">
 			<hr>
-			<select ng-model="cinema" ng-change="saveCinema()" class=""
+			<select ng-model="cinema" ng-change="saveCinema()" class="form-control"
 				ng-options="cinema.id as cinema.name for cinema in cinemas">
 				<option value="">-- choose cinema --</option>
 			</select>
@@ -15,7 +15,7 @@
 				<pre>{{hidden}}</pre>
 			</div>
 			<hr>
-			<button ng-click="clean=!clean">Edit</button>
+			<button class="btn btn-default" ng-click="clean=!clean">Edit</button>
 		</div>
 	</div>
 </div>
