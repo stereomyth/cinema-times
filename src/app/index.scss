@@ -19,6 +19,15 @@ $icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/"
   padding: 0.2em 0;
 }
 
+.hiddenz {
+	background-color: #e5e5e5;
+}
+
+.clean {
+	.hiddenz {
+		display: none;
+	}
+}
 
 /**
  *  Do not remove the comments below. It's the markers used by gulp-inject to inject

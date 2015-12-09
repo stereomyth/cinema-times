@@ -1,0 +1,6 @@
+<div ng-class="{'hiddenz':film.hidden}">
+  <!-- {{film.title}} -->
+  {{film.edi}} - <button ng-click="hideFilm(film)">hide</button>
+  <div film-times="film" ng-if="!film.hidden"></div>
+  <hr>
+</div>
