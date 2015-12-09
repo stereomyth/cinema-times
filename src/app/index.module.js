@@ -8,7 +8,7 @@ import { ShowTimesDirective } from '../app/components/show-times/show-times.dire
 import { FilmsApi } from '../app/components/api.service';
 
 angular.module('cineworld', [
-    'ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ngResource', 'ngRoute', 'ngStorage'
+    'ngAnimate', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ngResource', 'ngRoute', 'ngStorage'
   ])
   .config(config)
   .config(routerConfig)
