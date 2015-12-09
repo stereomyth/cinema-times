@@ -11,7 +11,7 @@ export class MainController {
       $scope.cinemas = response;
     });
 
-    Api.get('films', {cinema: $scope.cinema, date: 20151210, full: true}).then(function (films) {
+    Api.get('films', {date: 20151210, full: true}).then(function (films) {
 
       for (let edi in $scope.hidden) {
         // $log.debug(edi);

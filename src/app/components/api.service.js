@@ -44,7 +44,11 @@ export class FilmsApi {
           let api = 'http://www.cineworld.com/api/quickbook/' + route,
             slotNum = self.findSlot(),
             callBackName = 'apiCallback' + slotNum,
-            config = {params: {key: apiKey, callback: callBackName}};
+            config = {params: {
+              key: apiKey, 
+              cinema: $localStorage.cinema,
+              callback: callBackName
+            }};
 
           Object.assign(config.params, params);
 
