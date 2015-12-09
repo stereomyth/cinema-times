@@ -12,7 +12,7 @@ export class FilmsApi {
       callBackList: [],
 
       get: function (route, params) {
-        $log.debug('getting', route);
+        // $log.debug('getting', route);
         let self = this;
         return $q(function (resolve, reject) {
 
@@ -47,7 +47,8 @@ export class FilmsApi {
             config = {params: {
               key: apiKey, 
               cinema: $localStorage.cinema,
-              callback: callBackName
+              callback: callBackName,
+              date: self.getDate()
             }};
 
           Object.assign(config.params, params);
@@ -94,6 +95,13 @@ export class FilmsApi {
       letterOpener: function (json) {
         // remove wrapping object
         return json[Object.keys(json)[0]];
+      },
+
+      getDate: function () {
+        // get current date and convert to YYYYMMDD
+        $log.debug('hello');
+
+        return 20151210;
       }
 
     };
