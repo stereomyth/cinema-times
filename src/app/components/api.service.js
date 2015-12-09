@@ -12,18 +12,27 @@ export class FilmsApi {
       callBackList: [],
 
       get: function (route, params) {
+        $log.debug('getting', route);
         let self = this;
         return $q(function (resolve, reject) {
 
-            if ($localStorage.route) {
-              resolve($localStorage.route);
+            if ($localStorage[route]) {
+              
+              // if local exists use local
+              $log.debug('local', route);
+              resolve($localStorage[route]);
+
             } else {
+
+              // otherwise hit api
               self.remote(route, params).then(function (response) {
-                resolve(response);
-                $localStorage.route = response;
+                let json = self.letterOpener(response);
+                resolve(json);
+                $localStorage[route] = json;
               }, function (response) {
                 reject(response);
               });
+
             }
         });
       },
@@ -31,6 +40,7 @@ export class FilmsApi {
       remote: function (route, params) {
         let self = this;
         return $q(function(resolve, reject) {
+          $log.debug('remote', route);
           let api = 'http://www.cineworld.com/api/quickbook/' + route,
             slotNum = self.findSlot(),
             callBackName = 'apiCallback' + slotNum,
@@ -75,6 +85,11 @@ export class FilmsApi {
         }
 
         return nextFreeSlot;
+      },
+
+      letterOpener: function (json) {
+        // remove wrapping object
+        return json[Object.keys(json)[0]];
       }
 
     };
