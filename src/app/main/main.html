@@ -1,4 +1,21 @@
-<div class="container">
-  <!-- <h1>Films</h1> -->
-  <div><pre>{{result}}</pre></div>
+<div class="container" ng-class="{'clean': clean}">
+	<div class="row">
+		<div class="col-sm-6">
+			<hr>
+			<div ng-repeat="film in films" film="film" hidden-list="hidden"></div>
+		</div>
+		<div class="col-sm-6">
+			<hr>
+			<select ng-model="cinema" ng-change="saveCinema()" class=""
+				ng-options="cinema.id as cinema.name for cinema in cinemas">
+				<option value="">-- choose cinema --</option>
+			</select>
+			<hr>
+			<div>
+				<pre>{{hidden}}</pre>
+			</div>
+			<hr>
+			<button ng-click="clean=!clean">Edit</button>
+		</div>
+	</div>
 </div>
