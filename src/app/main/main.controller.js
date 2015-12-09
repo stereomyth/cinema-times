@@ -1,7 +1,8 @@
 export class MainController {
-  constructor ($scope, $log, Api, $localStorage, $filter) {
+  constructor ($scope, $log, Api, $localStorage, $filter, TimeLord) {
     'ngInject';
 
+    TimeLord.check();
     $scope.clean = true;
 
     $scope.cinema = $localStorage.cinema || {};
