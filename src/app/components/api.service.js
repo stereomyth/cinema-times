@@ -122,11 +122,11 @@ export class FilmsApi {
           // http request to api endpoint
           $http.jsonp(api, config)
             .then(function (response) {
-              // $log.debug('http success', response);
+              $log.debug('http success', response);
             }, function (response) {
               // currently always errors with 404 but still returns JSONP?
               reject();
-              // $log.debug('http error', response);
+              $log.debug('http error', response);
             });
 
         });
@@ -150,7 +150,7 @@ export class FilmsApi {
       letterOpener: function (json) {
         // remove wrapping object
         return json[Object.keys(json)[0]];
-      },
+      }
 
     };
 

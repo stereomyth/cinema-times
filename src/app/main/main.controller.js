@@ -1,5 +1,5 @@
 export class MainController {
-  constructor ($scope, $log, Api, $localStorage, $filter, TimeLord, moment) {
+  constructor ($scope, $log, Api, $localStorage, $filter, TimeLord) {
     'ngInject';
 
     TimeLord.check();

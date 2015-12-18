@@ -1,6 +1,6 @@
 'use strict';
 
-export function FilmDirective($log) {
+export function FilmDirective() {
   'ngInject';
 
   return {
@@ -13,8 +13,7 @@ export function FilmDirective($log) {
     link: function (scope) {
 
       scope.hideFilm = function (film) {
-        scope.hiddenList[film.edi] = !scope.hiddenList[film.edi];
-        film.hidden = scope.hiddenList[film.edi];
+        film.hidden = scope.hiddenList[film.edi] = !scope.hiddenList[film.edi];
       };
 
     }
