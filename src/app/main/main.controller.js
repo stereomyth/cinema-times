@@ -6,7 +6,10 @@ export class MainController {
     $scope.clean = true;
 
     $scope.cinema = $localStorage.cinema || {};
-    $scope.hidden = $localStorage.hidden || {};
+    if (!$localStorage.hidden) {
+      $localStorage.hidden = {};
+    }
+    $scope.hidden = $localStorage.hidden;
 
     Api.get('cinemas').then(function (response) {
       $scope.cinemas = response;
