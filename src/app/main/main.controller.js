@@ -11,11 +11,11 @@ export class MainController {
     }
     $scope.hidden = $localStorage.hidden;
 
-    Api.get('cinemas').then(function (response) {
+    Api.cinemas().then(function (response) {
       $scope.cinemas = response;
     });
 
-    Api.get('films', {full: true}).then(function (films) {
+    Api.films().then(function (films) {
 
       for (let edi in $scope.hidden) {
         // $log.debug(edi);

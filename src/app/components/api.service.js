@@ -4,23 +4,62 @@
 // stupid api interface I had to build because the Cineworld Api doesn't
 // accept JSONP functions with dots in and Angular always uses dots. 
 export class FilmsApi {
-  constructor ($q, $window, $log, $http, $localStorage) {
+  constructor ($q, $window, $log, $http, $localStorage, moment) {
     'ngInject';
 
     return {
 
       callBackList: [],
 
-      get: function (route, params) {
+      cinemas: function () {
         let self = this;
 
         return $q(function (resolve, reject) {
+          self.get('cinemas').then(function (response) {
+            resolve(response);
+          }, function (response) {
+            reject(response);
+          });
+        });
+      },
 
-            if ($localStorage[route]) {
+      films: function () {
+        let self = this;
+
+        return $q(function (resolve, reject) {
+          self.get('films', {full: true, date: moment().format('YYYYMMDD')})
+            .then(function (response) {
+              resolve(response);
+            }, function (response) {
+              reject(response);
+            });
+        });
+      },
+
+      shows: function (film) {
+        let self = this;
+
+        return $q(function (resolve, reject) {
+          self.get('performances', {film: film, date: moment().format('YYYYMMDD')}, film + '-shows')
+            .then(function (response) {
+              resolve(response);
+            }, function (response) {
+              reject(response);
+            });
+        });
+      },
+
+      get: function (route, params, label) {
+        let self = this;
+
+        return $q(function (resolve, reject) {
+            label = label || route;
+
+            if ($localStorage[label]) {
               
               // if local exists use local
-              $log.debug('local', route);
-              resolve($localStorage[route]);
+              $log.debug('local', label);
+              resolve($localStorage[label]);
 
             } else {
 
@@ -32,7 +71,7 @@ export class FilmsApi {
                   reject(response);
                 } else {
                   let json = self.letterOpener(response);
-                  $localStorage[route] = json;
+                  $localStorage[label] = json;
                   resolve(json);
                 }
               }, function (response) {

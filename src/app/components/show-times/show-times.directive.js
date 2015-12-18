@@ -11,10 +11,9 @@ export function ShowTimesDirective(Api, $log) {
     },
     link: function (scope) {
       
-      Api.get('performances', {film: scope.film.edi, date: 20151210})
-        .then(function (responce) {
-          scope.shows = responce;
-        });
+      Api.shows(scope.film.edi).then(function (responce) {
+        scope.shows = responce;
+      });
     }
   };
 }
