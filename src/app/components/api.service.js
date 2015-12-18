@@ -12,8 +12,8 @@ export class FilmsApi {
       callBackList: [],
 
       get: function (route, params) {
-        // $log.debug('getting', route);
         let self = this;
+
         return $q(function (resolve, reject) {
 
             if ($localStorage[route]) {
@@ -45,17 +45,22 @@ export class FilmsApi {
 
       remote: function (route, params) {
         let self = this;
+
         return $q(function(resolve, reject) {
+          let api, slotNum, callBackName, config;
+
           $log.debug('remote', route);
-          let api = 'http://www.cineworld.com/api/quickbook/' + route,
-            slotNum = self.findSlot(),
-            callBackName = 'apiCallback' + slotNum,
-            config = {params: {
+
+          api = 'http://www.cineworld.com/api/quickbook/' + route;
+          slotNum = self.findSlot();
+          callBackName = 'apiCallback' + slotNum;
+          config = {
+            params: {
               key: apiKey, 
               cinema: $localStorage.cinema,
-              callback: callBackName,
-              date: self.getDate()
-            }};
+              callback: callBackName
+            }
+          };
 
           Object.assign(config.params, params);
 
