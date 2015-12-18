@@ -1,8 +1,9 @@
 export class MainController {
-  constructor ($scope, $log, Api, $localStorage, $filter, TimeLord) {
+  constructor ($scope, $log, Api, $localStorage, $filter, TimeLord, moment) {
     'ngInject';
 
     TimeLord.check();
+
     $scope.clean = true;
 
     $scope.cinema = $localStorage.cinema || {};
@@ -15,25 +16,31 @@ export class MainController {
       $scope.cinemas = response;
     });
 
-    Api.films().then(function (films) {
+    let getFilms = function () {
+      Api.films().then(function (films) {
 
-      for (let edi in $scope.hidden) {
-        // $log.debug(edi);
-        let film = $filter('filter')(films, {edi: parseInt(edi)}, true)[0];
-        // $log.debug(film);
-        if (film) {
-          film.hidden = $scope.hidden[edi];
-        } else {
-          $log.debug('removed old film from hidden list');
-          delete $scope.hidden[edi];
+        for (let edi in $scope.hidden) {
+          let film = $filter('filter')(films, {edi: parseInt(edi)}, true)[0];
+
+          if (film) {
+            film.hidden = $scope.hidden[edi];
+          } else {
+            $log.debug('removed old film from hidden list');
+            delete $scope.hidden[edi];
+          }
         }
-      }
 
-      $scope.films = films;
-    });
+        $scope.films = films;
+      });
+    };
+
+    if ($localStorage.cinema) {
+      getFilms();
+    }
 
     $scope.saveCinema = function () {
       $localStorage.cinema = $scope.cinema;
+      getFilms();
     };
 
     $scope.clearAll = function () {
