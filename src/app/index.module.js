@@ -1,3 +1,5 @@
+/* global moment */
+
 import { config } from './index.config';
 import { routerConfig } from './index.route';
 import { runBlock } from './index.run';
@@ -13,6 +15,7 @@ angular.module('cineworld', [
   ])
   .config(config)
   .config(routerConfig)
+  .constant('moment', moment)
   .run(runBlock)
   .controller('MainController', MainController)
   .directive('acmeNavbar', NavbarDirective)
