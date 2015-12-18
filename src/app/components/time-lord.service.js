@@ -1,22 +1,32 @@
 'use strict';
 
 export class TimeLord {
-  constructor ($q, $window, $log, $http, $localStorage) {
+  constructor ($log, $localStorage, moment) {
     'ngInject';
 
-
     let service = {
-      todaysDate: Date.now(),
 
       check: function () {
 
+        $localStorage.temp = $localStorage.temp || [];
+
+        let currentDay = $localStorage.currentDay, 
+          today = moment(); 
+
+        if (!currentDay || currentDay && !today.isSame(currentDay, 'day')) {
         
+          $log.debug('Getting new data');
+          $localStorage.currentDay = moment();
 
-        // compare dates between 
-      },
+          delete $localStorage.films;
+          $localStorage.temp.forEach(function (entry) {
+            delete $localStorage[entry];
+          });
 
-      remember: function () {
-        $localStorage.remember = this.todaysDate;
+          $localStorage.temp = [];
+
+        }
+
       }
 
     };

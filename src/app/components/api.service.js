@@ -40,7 +40,9 @@ export class FilmsApi {
         let self = this;
 
         return $q(function (resolve, reject) {
-          self.get('performances', {film: film, date: moment().format('YYYYMMDD')}, film + '-shows')
+          let params = {film: film, date: moment().format('YYYYMMDD')};
+
+          self.get('performances', params, film + '-shows', true)
             .then(function (response) {
               resolve(response);
             }, function (response) {
@@ -49,7 +51,7 @@ export class FilmsApi {
         });
       },
 
-      get: function (route, params, label) {
+      get: function (route, params, label, temporary) {
         let self = this;
 
         return $q(function (resolve, reject) {
@@ -72,6 +74,9 @@ export class FilmsApi {
                 } else {
                   let json = self.letterOpener(response);
                   $localStorage[label] = json;
+                  if (temporary) {
+                    $localStorage.temp.push(label);
+                  }
                   resolve(json);
                 }
               }, function (response) {
