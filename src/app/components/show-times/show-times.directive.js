@@ -1,6 +1,6 @@
 'use strict';
 
-export function ShowTimesDirective(Api, $log) {
+export function ShowTimesDirective(Api, $log, moment) {
   'ngInject';
 
   return {
@@ -14,6 +14,11 @@ export function ShowTimesDirective(Api, $log) {
       Api.shows(scope.film.edi).then(function (responce) {
         scope.shows = responce;
       });
+
+      scope.available = function (time) {
+        return moment(time, 'hh:mm').add(25, 'm').isAfter(moment());
+      };
+
     }
   };
 }
