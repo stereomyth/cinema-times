@@ -26,9 +26,15 @@ export class FilmsApi {
 
               // otherwise hit api
               self.remote(route, params).then(function (response) {
-                let json = self.letterOpener(response);
-                resolve(json);
-                $localStorage[route] = json;
+
+                if (Object.keys(response)[0] === 'errors') {
+                  $log.debug('api error', response.errors);
+                  reject(response);
+                } else {
+                  let json = self.letterOpener(response);
+                  $localStorage[route] = json;
+                  resolve(json);
+                }
               }, function (response) {
                 reject(response);
               });
