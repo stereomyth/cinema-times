@@ -33,6 +33,18 @@ export class MainController {
       $localStorage.cinema = $scope.cinema;
     };
 
+    $scope.clearAll = function () {
+      $localStorage.$reset();
+    };
+
+    $scope.clearApi = function () {
+      // loop list of saved api data
+    };
+
+    $scope.clearHidden = function () {
+      $localStorage.hidden = {};
+    };
+
   }
 
   exampleFunction() {
