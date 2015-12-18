@@ -122,11 +122,11 @@ export class FilmsApi {
           // http request to api endpoint
           $http.jsonp(api, config)
             .then(function (response) {
-              $log.debug('http success', response);
+              // $log.debug('http success', response);
             }, function (response) {
               // currently always errors with 404 but still returns JSONP?
               reject();
-              $log.debug('http error', response);
+              // $log.debug('http error', response);
             });
 
         });
@@ -151,13 +151,6 @@ export class FilmsApi {
         // remove wrapping object
         return json[Object.keys(json)[0]];
       },
-
-      getDate: function () {
-        // get current date and convert to YYYYMMDD
-        $log.debug('hello');
-
-        return 20151210;
-      }
 
     };
 
