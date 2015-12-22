@@ -20,13 +20,30 @@ $icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/"
 }
 
 .hiddenz {
-	background-color: #e5e5e5;
+  background-color: #e5e5e5;
 }
 
 .clean {
-	.hiddenz {
-		display: none;
-	}
+  .hiddenz {
+    display: none;
+  }
+}
+
+.film {
+  border-bottom: 1px solid #eeeeee;
+  padding: 20px 0;
+
+  img {
+    width: 100%;
+  }
+
+  h4 {
+    margin-top: 0;
+  }
+}
+
+.showz {
+  margin: 2px;
 }
 
 /**

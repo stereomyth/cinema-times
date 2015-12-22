@@ -1,6 +1,15 @@
-<div ng-class="{'hiddenz':film.hidden}">
-  <h4>{{film.title}}</h4>
-  {{film.edi}} - <button class="btn btn-default" ng-click="hideFilm(film)">hide</button>
-  <div show-times="film" ng-if="!film.hidden"></div>
-  <hr>
+<div class="film" ng-class="{'hiddenz':film.hidden}">
+  <div class="row">
+    <!-- <pre>{{film}}</pre> -->
+    <div class="col-sm-2">
+      <img ng-src="{{film.poster_url}}" alt="" class="pull-left">
+    </div>
+    <div class="col-sm-10">
+      <div class="pull-left">
+        <h4>{{film.title | removeType}} <span ng-show="film.imax">- IMAX</span></h4>
+        <!-- <button class="btn btn-default pull-right" ng-click="hideFilm(film)">hide</button> -->
+        <div show-times="film" ng-if="!film.hidden"></div>
+      </div>
+    </div>
+  </div>
 </div>
