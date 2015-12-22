@@ -9,6 +9,7 @@ import { FilmDirective } from '../app/components/film/film.directive';
 import { ShowTimesDirective } from '../app/components/show-times/show-times.directive';
 import { FilmsApi } from '../app/components/api.service';
 import { TimeLord } from '../app/components/time-lord.service';
+import { RemoveTypeFilter } from '../app/components/remove-type.filter';
 
 angular.module('cineworld', [
     'ngAnimate', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ngResource', 'ngRoute', 'ngStorage'
@@ -23,4 +24,5 @@ angular.module('cineworld', [
   .directive('showTimes', ShowTimesDirective)
   .service('Api', FilmsApi)
   .service('TimeLord', TimeLord)
+  .filter('removeType', RemoveTypeFilter)
 ;
