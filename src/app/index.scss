@@ -19,8 +19,19 @@ $icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/"
   padding: 0.2em 0;
 }
 
+header, footer {
+  background-color: #e41d13;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+header {
+  text-transform: uppercase;
+}
+
 .hiddenz {
-  background-color: #e5e5e5;
+  opacity: 0.4;
 }
 
 .clean {
@@ -30,20 +41,28 @@ $icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/"
 }
 
 .film {
-  border-bottom: 1px solid #eeeeee;
-  padding: 20px 0;
+  // border-bottom: 1px solid #eeeeee;
+  // padding: 20px 0;
+  margin-bottom: 20px;
+  text-align: center;
+
+  .film-title {
+    text-transform: uppercase;
+    margin-top: 0;
+  }
 
   img {
     width: 100%;
-  }
-
-  h4 {
-    margin-top: 0;
+    // margin: 0 -15px;
   }
 }
 
 .showz {
   margin: 2px;
+}
+
+footer {
+  margin-top: 20px;
 }
 
 /**

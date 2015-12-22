@@ -1,25 +1,31 @@
-<div class="container" ng-class="{'clean': clean}">
-	<div class="row">
-		<div class="col-sm-6">
-			<hr>
-			<div ng-repeat="film in films" film="film" hidden-list="hidden"></div>
-		</div>
-		<div class="col-sm-6">
-			<hr>
-			<select ng-model="cinema" ng-change="saveCinema()" class="form-control"
-				ng-options="cinema.id as cinema.name for cinema in cinemas">
-				<option value="">-- choose cinema --</option>
-			</select>
-			<hr>
-			<div>
-				<pre>{{hidden}}</pre>
-			</div>
-			<hr>
-			<button class="btn btn-default" ng-click="clean=!clean">Edit</button>
-			<hr>
+<header>
+	Cineworld <em>Now</em>
+</header>
+<div class="container">
+	<select ng-model="cinema" ng-change="saveCinema()" class="form-control"
+		ng-options="cinema.id as cinema.name for cinema in cinemas">
+		<option value="">-- choose cinema --</option>
+	</select>
+	<div class="clearfix">
+		<button class="btn btn-default pull-left" ng-click="clean=!clean">Show Hidden</button>
+		<button class="btn btn-default pull-right" ng-click="debug=!debug">Debug</button>
+	</div>
+	<div ng-show="debug">
+		<h4>Debug</h4>
+		<div>
 			<button class="btn btn-default" ng-click="clearAll()">Clear all local storage</button>
+		</div>
+		<div>
 			<button class="btn btn-default" ng-click="clearApi()">Clear local api data</button>
+		</div>
+		<div>
 			<button class="btn btn-default" ng-click="clearHidden()">Clear hidden films</button>
 		</div>
 	</div>
 </div>
+<div ng-class="{'clean': clean}">
+	<div ng-repeat="film in films" film="film" hidden-list="hidden"></div>
+</div>
+<footer>
+	lost with us
+</footer>
