@@ -12,6 +12,12 @@ $icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/"
 // bower:scss
 // endbower
 
+body {
+  background-color: #e41d13;
+}
+
+
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -28,6 +34,15 @@ header, footer {
 
 header {
   text-transform: uppercase;
+}
+
+.wrapper {
+  background-color: #fff;
+  padding: 1px 0;
+}
+
+.options, .debug {
+  margin: 20px 0;
 }
 
 .hiddenz {
@@ -62,7 +77,7 @@ header {
 }
 
 footer {
-  margin-top: 20px;
+  // margin-top: 20px;
 }
 
 /**
