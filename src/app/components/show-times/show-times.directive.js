@@ -25,7 +25,7 @@ export function ShowTimesDirective(Api, $log, moment) {
 
         if (scope.shows.length < 1) {
           console.log('no shows', scope.film.title);
-          scope.$parent.noShows = true;
+          scope.$parent.v.shows = false;
         } 
       });
 

@@ -16,6 +16,10 @@ export function FilmDirective() {
         film.hidden = scope.hiddenList[film.edi] = !scope.hiddenList[film.edi];
       };
 
+      scope.v = {
+        shows: true
+      };
+
     }
   };
 }
