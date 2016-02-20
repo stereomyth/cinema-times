@@ -17,14 +17,14 @@ export function ShowTimesDirective(Api, $log, moment) {
 
       Api.shows(scope.film.edi).then(function (data) {
         scope.shows = [];
-        data.forEach(function (show, index) {
+        data.forEach(function (show) {
           if (available(show.time)) {
             scope.shows.push(show);
           }
         });
 
         if (scope.shows.length < 1) {
-          console.log('no shows', scope.film.title);
+          $log.debug('no shows', scope.film.title);
           scope.$parent.v.shows = false;
         } 
       });

@@ -1,4 +1,3 @@
-/* globals apiKey */
 'use strict';
 
 // stupid api interface I had to build because the Cineworld Api doesn't
@@ -6,6 +5,8 @@
 export class FilmsApi {
   constructor ($q, $window, $log, $http, $localStorage, moment) {
     'ngInject';
+
+    let apiKey = 'TNk2:R3P';
 
     return {
 
