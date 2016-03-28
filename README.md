@@ -3,25 +3,57 @@
 A minimal site for current film times at Cineworld
 
 
------
 
-select cinema
+## Marquee
 
-view films showing today
-screening times
-time to next screening
+Angular frontend
 
-hide watched / uniterested movies
+- app icon
+- name?
+- url
+- interface icons
+	- settings gear
+	- hide/show eyes
+- webapp ios / android package
+- options
+	- poster or screenshot
+	- compact list
+	- auto hide 3d / imax
+	- start-time or real start-time
+- comming soon
+	- hide
+- responsive
+- time to next screening
+- intro wizard
+- highlight time on click
+- time till next? 
 
-hide event films (opera, kids specific)
 
-combine 3d / imax / 2d film duplicates
+## Projectionist 
 
-----
+Node server api
 
-api doesn't support CORS, but also doesnt support dots in jsonp callback functions, blerg
-unable to use angular automatic callbacks
+# Back
 
+- learn node 
+- call cineworld api
+	- use jsonp
+	- store data as usefull json
+		- combine 3d / imax / 2d film duplicates
+		- film > days > screenings
+- serve api requests to frontent
+	- only send relevant films and times
+	- gzip
 
+# Front
 
-[temporary fix](http://stackoverflow.com/questions/25400891/how-to-custom-set-angularjs-jsonp-callback-name) : an interceptor that builds the functions with the expected incorrect name and links them to the correctly named functions.
+- simplify frontend
+	- remove jsonp hackery
+	- hidden still local
+		- same json structure as films and extend objects
+
+# v2 
+
+- hide event films (opera, kids specific)?
+- call other api for film lengths?
+	- create front end viewing order system 
