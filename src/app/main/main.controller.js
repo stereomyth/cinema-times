@@ -12,12 +12,12 @@ export class MainController {
     }
     $scope.hidden = $localStorage.hidden;
 
-    Api.cinemas().then(function (response) {
-      $scope.cinemas = response;
+    Api.get('cinemas').then(response => {
+      $scope.cinemas = response.cinemas;
     });
 
-    let getFilms = function () {
-      Api.films().then(function (films) {
+    let getFilms = () => {
+      Api.get('films').then(films => {
 
         for (let edi in $scope.hidden) {
           let film = $filter('filter')(films, {edi: parseInt(edi)}, true)[0];
@@ -38,27 +38,23 @@ export class MainController {
       getFilms();
     }
 
-    $scope.saveCinema = function () {
+    $scope.saveCinema = () => {
       $localStorage.cinema = $scope.cinema;
       getFilms();
     };
 
-    $scope.clearAll = function () {
+    $scope.clearAll = () => {
       $localStorage.$reset();
     };
 
-    $scope.clearApi = function () {
+    $scope.clearApi = () => {
       // loop list of saved api data
     };
 
-    $scope.clearHidden = function () {
+    $scope.clearHidden = () => {
       $localStorage.hidden = {};
     };
 
-  }
-
-  exampleFunction() {
-    //function 
   }
 
 }

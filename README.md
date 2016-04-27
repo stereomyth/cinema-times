@@ -27,6 +27,7 @@ Angular frontend
 - intro wizard
 - highlight time on click
 - time till next? 
+- empty states
 
 
 ## Projectionist 
