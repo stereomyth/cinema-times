@@ -1,0 +1,71 @@
+$icon-font-path: 'fonts/';
+
+// bower:scss
+@import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+// endbower
+
+.browserupgrade {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+body {
+  background-color: #e41d13;
+}
+
+header, footer {
+  background-color: #e41d13;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+header {
+  text-transform: uppercase;
+}
+
+.wrapper {
+  background-color: #fff;
+  padding: 1px 0;
+}
+
+.options, .debug {
+  margin: 20px 0;
+}
+
+.hiddenz {
+  opacity: 0.4;
+}
+
+.clean {
+  .hiddenz {
+    display: none;
+  }
+}
+
+.film {
+  // border-bottom: 1px solid #eeeeee;
+  // padding: 20px 0;
+  margin-bottom: 20px;
+  // text-align: center;
+
+  .film-title {
+    text-transform: uppercase;
+    margin-top: 0;
+  }
+
+  img {
+    width: 100%;
+    // margin: 0 -15px;
+  }
+}
+
+.showz {
+  margin: 2px;
+}
+
+footer {
+  // margin-top: 20px;
+}

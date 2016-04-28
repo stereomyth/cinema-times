@@ -1,0 +1,23 @@
+<div class="film" ng-class="{'hiddenz':film.hidden}" ng-if="v.shows">
+  <img ng-src="http://www.cineworld.co.uk/assets/media/films/{{film.id}}_poster_iphone.jpg">
+  
+  <!-- <img ng-src="{{film.still_url}}"> -->
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-4">
+        <img ng-src="{{film.poster_url}}">
+      </div>
+      <div class="col-xs-8">
+        <h4 class="film-title">{{film.title | removeType}}</h4>
+        <div><span ng-show="film.imax">IMAX </span><span ng-show="film['3D']"> 3D</span></div>
+        <!-- <div show-times="film" ng-if="!film.hidden"></div> -->
+        <div>
+          <button class="btn btn-default" ng-click="hideFilm(film)">hide</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+</div>
