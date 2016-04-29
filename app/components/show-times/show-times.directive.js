@@ -5,7 +5,7 @@ angular.module('gulp-angular')
     return {
 
       restrict: 'A',
-      templateUrl: 'app/components/show-times/show-times.html',
+      templateUrl: 'components/show-times/show-times.html',
       scope: {
         film: '=showTimes'
       },

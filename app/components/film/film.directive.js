@@ -5,7 +5,7 @@ angular.module('gulp-angular')
     return {
 
       restrict: 'A',
-      templateUrl: 'app/components/film/film.html',
+      templateUrl: 'components/film/film.html',
       scope: {
         film: '=',
         hiddenList: '='
