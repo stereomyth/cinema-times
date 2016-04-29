@@ -8,6 +8,8 @@
 
       // $scope.clean = true;
 
+      $scope.all = true;
+
       $scope.options = $localStorage.options = $localStorage.options || {hidden: []};
       // $localStorage.general = $localStorage.general || {};
 
