@@ -1,5 +1,16 @@
-<header>
-	Cineworld <em>Now</em>
+<header class="clearfix">
+	<div class="pull-left">
+		<button class="btn btn-clear" ng-click="clean = !clean">
+			<span class="glyphicon" aria-hidden="true" 
+				ng-class="{'glyphicon-eye-open': clean, 'glyphicon-eye-close': !clean}"></span>
+		</button>
+	</div>
+	<div class="pull-right">
+		<button class="btn btn-clear" ng-click="showOptions = !showOptions">
+			<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+		</button>
+	</div>
+	<div class="header-title">Cineworld <em>Now</em></div>
 </header>
 <div class="wrapper">
 	<div class="container">

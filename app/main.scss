@@ -26,6 +26,29 @@ header {
   text-transform: uppercase;
 }
 
+.header-title {
+  padding-top: 4px;
+  font-size: 18px;
+}
+
+.btn-clear {
+  background: none;
+  border: 1px solid white;
+  vertical-align: bottom;
+  padding-bottom: 4px;
+
+  &:hover {
+    outline: none;
+    background-color: rgba(white,0.3);
+  }
+
+  &:focus {
+    background-color: #fff;
+    color: #e41d13;
+    outline: none;
+  }
+}
+
 .wrapper {
   background-color: #fff;
   padding: 1px 0;
