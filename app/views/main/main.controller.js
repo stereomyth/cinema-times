@@ -1,19 +1,25 @@
-(function() {
+
   'use strict';
 
   angular.module('gulp-angular')
-    .controller('MainController', function($scope, $log, $localStorage, Res) {
-
-      $log.debug('hello');
+    .controller('MainController', function($scope, $log, $localStorage, Res, Films) {
 
       // TimeLord.check();
 
       // $scope.clean = true;
 
       $scope.options = $localStorage.options = $localStorage.options || {hidden: []};
-      $localStorage.general = $localStorage.general || {};
+      // $localStorage.general = $localStorage.general || {};
 
-      $scope.cinemas = Res.cinemas();
+      Res.get('cinemas').then(cinemas => $scope.cinemas = cinemas);
+
+      Films.get().then(films => {
+        $scope.films = films;
+      });
+
+
+
+
       // $log.debug(Api.get('cinemas').then(response => {
         // $scope.cinemas = response.cinemas;
       // });
@@ -65,4 +71,4 @@
     }
   );
 
-})();
+
