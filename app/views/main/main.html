@@ -14,14 +14,16 @@
 </header>
 <div class="wrapper">
 	<div class="container">
-		<section class="options">
+		<section class="options" ng-show="showOptions">
 			<select ng-model="options.cinema" ng-change="saveCinema()" class="form-control"
 				ng-options="cinema.id as cinema.name for cinema in cinemas">
-				<!-- <option value="">-- choose cinema --</option> -->
+				<option value="">Select cinema</option>
 			</select>
-			<div class="clearfix">
+			<!-- <div class="clearfix">
 				<button class="btn btn-default pull-left" ng-click="clean=!clean">Show Hidden</button>
-				<button class="btn btn-default pull-right" ng-click="debug=!debug">Debug</button>
+			</div> -->
+			<div>
+				<button class="btn btn-link" ng-click="debug=!debug">Show debug options</button>
 			</div>
 		</section>
 		<section class="debug" ng-show="debug">
@@ -37,7 +39,7 @@
 			</div>
 		</section>
 	</div>
-	<div ng-class="{'clean': clean}">
+	<!-- <div ng-class="{'clean': clean}">
 		<div ng-repeat="film in films" film="film" hidden-list="hidden"></div>
 	</div> -->
 	<div class="container">

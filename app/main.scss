@@ -19,7 +19,7 @@ header, footer {
   background-color: #e41d13;
   color: white;
   text-align: center;
-  padding: 20px;
+  padding: 10px;
 }
 
 header {
@@ -55,7 +55,9 @@ header {
 }
 
 .options, .debug {
-  margin: 20px 0;
+  margin: 20px auto;
+  max-width: 600px;
+
 }
 
 .hiddenz {
