@@ -28,6 +28,23 @@
 	</div>
 	<div ng-class="{'clean': clean}">
 		<div ng-repeat="film in films" film="film" hidden-list="hidden"></div>
+	</div> -->
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-6 col-sm-3 col-md-2" ng-repeat="film in films">
+				<div class="film">
+					<!-- {{film.title}} -->
+					<div class="poster">
+						<div class="poster-title">{{film.title}}</div>
+						<img ng-src="{{film.poster}}">
+					</div>
+					<span class="badge" ng-show="film.types.two">2D</span>
+					<span class="badge" ng-show="film.types.three">3D </span>
+					<span class="badge" ng-show="film.types.imax">IMAX </span>
+					<span class="badge" ng-show="film.types.i3d">IMAX 3D </span>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <footer>
