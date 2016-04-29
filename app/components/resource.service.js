@@ -4,19 +4,6 @@ angular.module('gulp-angular')
   .factory('Res', function ($q, $window, $log, $http, $localStorage, moment, Api) {
     return {
 
-      // films: function () {
-      //   let self = this;
-
-      //   return $q(function (resolve, reject) {
-      //     self.get('films', {full: true, date: moment().format('YYYYMMDD')})
-      //       .then(function (response) {
-      //         resolve(response);
-      //       }, function (response) {
-      //         reject(response);
-      //       });
-      //   });
-      // },
-
       // shows: function (film) {
       //   let self = this;
 
@@ -36,26 +23,33 @@ angular.module('gulp-angular')
         if ($localStorage.cinemas) {
           return $localStorage.cinemas;
         } else {
-          return Api.cinemas(arguments);
+          Api.cinemas(arguments, response => {
+            $localStorage.cinemas = response.cinemas;
+            return response.cinemas;
+          });
         }
       },
 
-      get: function (action, args) {
-        // label = label || route;
+      get: function (action) {
 
-        if ($localStorage.general[action]) {
+          return $q(function (resolve, reject) {
 
-          // if local exists use local
-          $log.debug('local', action);
-          return $localStorage.general[action];
+            if ($localStorage[action]) {
+              $log.debug('local', action);
+              resolve($localStorage[action]);
+            } else {
+              $log.debug('remote', action);
 
-        } else {
+              Api[action](function (response) {
+                $localStorage[action] = response[action];
+                resolve(response[action]);
+              }, function (error) {
+                reject(error);
+              });
+            }
 
-          $log.debug('remote', action);
-          $localStorage.general[action] = this.remote[action](args);
-          return this.remote[action](args);
+          });
 
-        }
       }
 
     };
