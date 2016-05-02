@@ -22,6 +22,17 @@
 			<!-- <div class="clearfix">
 				<button class="btn btn-default pull-left" ng-click="clean=!clean">Show Hidden</button>
 			</div> -->
+			<hr>
+			<div>
+				<p><strong>All films type indicator</strong></p>
+				<label class="radio-inline">
+					<input type="radio" name="tab-type" value="colours" ng-model="options.typeTabs"> Colour bars
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="tab-type" value="labels" ng-model="options.typeTabs"> Labels
+				</label>
+			</div>
+			<hr>
 			<div>
 				<button class="btn btn-link" ng-click="debug=!debug">Show debug options</button>
 			</div>
@@ -54,17 +65,18 @@
 			<div class="row">
 				<div class="col-xs-6 col-sm-3 col-md-2" ng-repeat="film in films">
 					<div class="film">
-						<!-- {{film.title}} -->
 						<div class="poster">
 							<div class="poster-title">{{film.title}}</div>
 							<div ng-repeat="type in film.types">
 								<img ng-src="{{type.poster}}">
 							</div>
 						</div>
-						<span class="badge" ng-show="film.types.two">2D</span>
-						<span class="badge" ng-show="film.types.three">3D </span>
-						<span class="badge" ng-show="film.types.imax">IMAX </span>
-						<span class="badge" ng-show="film.types.i3d">IMAX 3D </span>
+						<div class="type-tabs type-{{options.typeTabs}}">
+							<div ng-repeat="(name, type) in film.types" class="type-tab {{name}}" 
+								ng-style="{width: 100 / objl(film.types) + '%'}">
+								<span class="type-label">{{type.name}}</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

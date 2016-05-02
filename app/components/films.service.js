@@ -39,7 +39,7 @@ angular.module('gulp-angular')
         };
 
         let converted = films.films.map(inFilm => {
-          let type;
+          let type, typeName;
 
           let outFilm = {
             title: inFilm.title,
@@ -53,18 +53,23 @@ angular.module('gulp-angular')
 
           if (reg.three.test(inFilm.title)) {
             type = 'three';
+            typeName = '3D';
           } else if (reg.imax.test(inFilm.title)) {
             type = 'imax';
+            typeName = 'IMAX';
           } else if (reg.i3d.test(inFilm.title)) {
             type = 'i3d';
+            typeName = 'IMAX 3D';
           } else {
             type = 'two';
+            typeName = '2D';
           }
 
           outFilm.title = inFilm.title.replace(reg[type], '');
           outFilm.types[type] = {
             edi: inFilm.edi,
-            poster: inFilm.poster_url
+            poster: inFilm.poster_url,
+            name: typeName
           };
 
           return outFilm;
