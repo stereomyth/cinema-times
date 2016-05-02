@@ -10,26 +10,21 @@
 
       $scope.all = true;
 
-      $scope.options = $localStorage.options = $localStorage.options || {hidden: []};
+      $scope.options = $localStorage.options;
       // $localStorage.general = $localStorage.general || {};
 
-      Res.get('cinemas').then(cinemas => $scope.cinemas = cinemas);
+      Res.get('cinemas').then(cinemas => { $scope.cinemas = cinemas; });
 
-      Films.get().then(films => {
-        $scope.films = films;
-      });
+      let getFilms = () => {
+        Films.get({cinema: $scope.options.cinema})
+          .then(films => { $scope.films = films; });
+      };
 
-
-
-
-      // $log.debug(Api.get('cinemas').then(response => {
-        // $scope.cinemas = response.cinemas;
-      // });
-
-      // Api.get('films').then(response => {
-      //   $scope.films = response.films;
-      // });
-
+      if ($scope.options.cinema) {
+        getFilms();
+      } else {
+        $scope.showOptions = true;
+      }
 
       // let getFilms = () => {
       //   Api.get('films').then(films => {

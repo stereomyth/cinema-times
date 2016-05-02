@@ -4,7 +4,7 @@ angular.module('gulp-angular')
   .factory('Films', function ($q, $window, $log, $http, $localStorage, Api) {
     return {
 
-      get: function () {
+      get: function (params) {
         let self = this;
 
         return $q(function (resolve, reject) {
@@ -15,7 +15,7 @@ angular.module('gulp-angular')
           } else {
             $log.debug('remote films');
 
-            Api.films(function (films) {
+            Api.films(params, function (films) {
 
               resolve(self.convert(films));
 
