@@ -62,6 +62,8 @@
         $localStorage.options.hidden = [];
       };
 
+      $scope.objl = obj => Object.keys(obj).length;
+
     }
   );
 

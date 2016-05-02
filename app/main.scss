@@ -137,6 +137,21 @@ header {
   font-size: 20px;
 }
 
+.type-tabs {
+  overflow: auto
+}
+
+.type-tab {
+  height: 6px;
+  // margin-top: 1px;
+  float: left;
+
+  &.two { background-color: #e4131d; }
+  &.three { background-color: #13e41d; }
+  &.i3d { background-color: #131de4; }
+  // &.imax { background-color: green; }
+}
+
 .showz {
   margin: 2px;
 }
