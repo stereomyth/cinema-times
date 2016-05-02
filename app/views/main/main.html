@@ -57,7 +57,9 @@
 						<!-- {{film.title}} -->
 						<div class="poster">
 							<div class="poster-title">{{film.title}}</div>
-							<img ng-src="{{film.poster}}">
+							<div ng-repeat="type in film.types">
+								<img ng-src="{{type.poster}}">
+							</div>
 						</div>
 						<span class="badge" ng-show="film.types.two">2D</span>
 						<span class="badge" ng-show="film.types.three">3D </span>
