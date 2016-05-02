@@ -15,9 +15,9 @@
 <div class="wrapper">
 	<div class="container">
 		<section class="options" ng-show="showOptions">
+			<p><strong>Cinema</strong></p>
 			<select ng-model="options.cinema" ng-change="selectCinema()" class="form-control"
 				ng-options="cinema.id as cinema.name for cinema in cinemas">
-				<option value="">Select cinema</option>
 			</select>
 			<!-- <div class="clearfix">
 				<button class="btn btn-default pull-left" ng-click="clean=!clean">Show Hidden</button>
