@@ -17,23 +17,7 @@ angular.module('gulp-angular')
 
             Api.films(function (films) {
 
-              let converted = films.films.map(self.convert);
-
-              angular.forEach(converted, function (film, i) {
-                if (film) {
-                  for (var i2 = i + 1; i2 < converted.length; i2++) {
-                    if (converted[i2].title === film.title) {
-                      angular.extend(film.types, converted[i2].types);
-                      converted[i2] = '';
-                    }
-                  }
-                }
-              });
-
-              films = converted.filter(film => film);
-
-              $localStorage.films = films;
-              resolve(films);
+              resolve(self.convert(films));
 
             }, function (error) {
               reject(error);
@@ -45,8 +29,7 @@ angular.module('gulp-angular')
 
       },
 
-      convert: function (inFilm) {
-        let type;
+      convert: films => {
 
         let reg = {
           three: /^\(3[dD]\) /,
@@ -55,33 +38,53 @@ angular.module('gulp-angular')
           i3d: /^\(IMAX 3-?[dD]\) /
         };
 
-        let outFilm = {
-          title: inFilm.title,
-          url: inFilm.inFilm_url,
-          classification: inFilm.classification,
-          advisory: inFilm.advisory,
-          poster: inFilm.poster_url,
-          still: inFilm.still_url,
-          types: {}
-        };
+        let converted = films.films.map(inFilm => {
+          let type;
 
-        if (reg.three.test(inFilm.title)) {
-          type = 'three';
-        } else if (reg.imax.test(inFilm.title)) {
-          type = 'imax';
-        } else if (reg.i3d.test(inFilm.title)) {
-          type = 'i3d';
-        } else {
-          type = 'two';
-        }
+          let outFilm = {
+            title: inFilm.title,
+            url: inFilm.inFilm_url,
+            classification: inFilm.classification,
+            advisory: inFilm.advisory,
+            poster: inFilm.poster_url,
+            still: inFilm.still_url,
+            types: {}
+          };
 
-        outFilm.title = inFilm.title.replace(reg[type], '');
-        outFilm.types[type] = {
-          edi: inFilm.edi,
-          poster: inFilm.poster_url
-        };
+          if (reg.three.test(inFilm.title)) {
+            type = 'three';
+          } else if (reg.imax.test(inFilm.title)) {
+            type = 'imax';
+          } else if (reg.i3d.test(inFilm.title)) {
+            type = 'i3d';
+          } else {
+            type = 'two';
+          }
 
-        return outFilm;
+          outFilm.title = inFilm.title.replace(reg[type], '');
+          outFilm.types[type] = {
+            edi: inFilm.edi,
+            poster: inFilm.poster_url
+          };
+
+          return outFilm;
+        });
+
+        angular.forEach(converted, function (film, i) {
+          if (film) {
+            for (var i2 = i + 1; i2 < converted.length; i2++) {
+              if (converted[i2].title === film.title) {
+                angular.extend(film.types, converted[i2].types);
+                converted[i2] = '';
+              }
+            }
+          }
+        });
+
+        films = converted.filter(film => film);
+        $localStorage.films = films;
+
+        return films;
       }
 
     };
