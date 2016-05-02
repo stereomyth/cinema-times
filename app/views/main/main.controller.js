@@ -49,13 +49,9 @@
       //   });
       // };
 
-      // if ($localStorage.options.cinema) {
-      //   getFilms();
-      // }
-
-      $scope.saveCinema = () => {
-        // $localStorage.options.cinema = $scope.options.cinema;
-        // getFilms();
+      $scope.selectCinema = () => {
+        delete $localStorage.films;
+        getFilms();
       };
 
       $scope.clearAll = () => {
