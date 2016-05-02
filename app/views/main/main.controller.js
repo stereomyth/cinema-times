@@ -63,11 +63,12 @@
       };
 
       $scope.clearApi = () => {
-        // loop list of saved api data
+        delete $localStorage.films;
+        delete $localStorage.cinemas;
       };
 
       $scope.clearHidden = () => {
-        $localStorage.hidden = {};
+        $localStorage.options.hidden = [];
       };
 
     }
