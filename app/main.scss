@@ -172,6 +172,10 @@ header {
     &.three { background-color: #13e41d; }
     &.i3d { background-color: #131de4; }
   }
+
+  .type-none & {
+    display: none;
+  }
 }
 
 .showz {

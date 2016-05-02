@@ -21,7 +21,7 @@
     .config(function ($logProvider) {
       $logProvider.debugEnabled(true);
       if (!localStorage['ngStorage-options']) {
-        localStorage['ngStorage-options'] = '{}';
+        localStorage['ngStorage-options'] = '{"typeTabs": "none"}';
       }
     })
 
