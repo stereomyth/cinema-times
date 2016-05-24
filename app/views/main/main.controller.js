@@ -13,7 +13,9 @@
       $scope.options = $localStorage.options;
       // $localStorage.general = $localStorage.general || {};
 
+      // Res.get('events').then(events => { $scope.events = events; });
       Res.get('cinemas').then(cinemas => { $scope.cinemas = cinemas; });
+      Res.get('today').then(today => { $scope.today = today; });
 
       let getFilms = () => {
         Films.get({cinema: $scope.options.cinema})
