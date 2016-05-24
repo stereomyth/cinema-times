@@ -35,7 +35,8 @@ angular.module('gulp-angular')
           three: /^\(3[dD]\) /,
           imax: /^\(IMAX\) /,
           two: /^\(2[dD]\) /,
-          i3d: /^\(IMAX 3-?[dD]\) /
+          i3d: /^\((3[dD] IMAX|IMAX 3-?[dD])\) /,
+          unlimited: / (-\s)?Unlimited (Card\s)?Screening/,
         };
 
         let converted = films.films.map(inFilm => {
@@ -60,6 +61,9 @@ angular.module('gulp-angular')
           } else if (reg.i3d.test(inFilm.title)) {
             type = 'i3d';
             typeName = 'IMAX 3D';
+          } else if (reg.unlimited.test(inFilm.title)) {
+            type = 'unlimited';
+            typeName = 'U';
           } else {
             type = 'two';
             typeName = '2D';
