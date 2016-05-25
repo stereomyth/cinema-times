@@ -6,8 +6,9 @@ angular.module('gulp-angular')
 
       get: function () {
         let self = this;
+        let params = {route: 'films', cinema: $localStorage.options.cinema};
 
-        return $q(function (resolve) {
+        return $q(function (resolve, reject) {
 
           if ($localStorage.films) {
             $log.debug('local films');
@@ -15,7 +16,7 @@ angular.module('gulp-angular')
           } else {
             $log.debug('remote films');
 
-            $q.all({films: self.films(), today: self.today()})
+            $q.all({films: self.films(params), today: self.today(params)})
               .then(function (response) {
                 $log.debug(response);
 
@@ -33,6 +34,8 @@ angular.module('gulp-angular')
 
                 $localStorage.films = response.films;
                 resolve(response.films);
+              }, error => {
+                reject(error);
               });
           }
 
@@ -40,26 +43,26 @@ angular.module('gulp-angular')
 
       },
 
-      films: function () {
+      films: function (params) {
         let self = this;
-        return $q(function (resolve, reject) {
+        params.full = true;
 
-          Api.get({route: 'films', full: true, cinema: $localStorage.options.cinema},
+        return $q(function (resolve, reject) {
+          Api.get(params,
             films => { resolve(self.convert(films)); },
             error => { reject(error); }
           );
-
         });
       },
 
-      today: function () {
-        return $q(function (resolve, reject) {
+      today: function (params) {
+        params.date = moment().format('YYYYMMDD');
 
-          Api.get({route: 'films', date: moment().format('YYYYMMDD'), cinema: $localStorage.options.cinema},
+        return $q(function (resolve, reject) {
+          Api.get(params,
             data => { resolve(data.films); },
             error => { reject(error); }
           );
-
         });
       },
 
