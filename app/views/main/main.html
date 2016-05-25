@@ -70,9 +70,7 @@
 					<div class="film">
 						<div class="poster">
 							<div class="poster-title">{{film.title}}</div>
-							<div ng-repeat="type in film.types">
-								<img ng-src="{{type.poster}}">
-							</div>
+							<img ng-src="{{film.poster}}">
 						</div>
 						<div class="type-tabs type-{{options.typeTabs}}">
 							<div ng-repeat="(name, type) in film.types" class="type-tab {{name}}" 
