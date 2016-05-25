@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('gulp-angular')
-  .factory('Films', function ($q, $window, $log, $http, $localStorage, Api) {
+  .factory('Films', function ($q, $window, $log, $http, $localStorage, Api, moment) {
     return {
 
-      get: function (params) {
+      get: function () {
         let self = this;
 
-        return $q(function (resolve, reject) {
+        return $q(function (resolve) {
 
           if ($localStorage.films) {
             $log.debug('local films');
@@ -15,19 +15,65 @@ angular.module('gulp-angular')
           } else {
             $log.debug('remote films');
 
-            Api.films(params, function (films) {
+            $q.all({films: self.films(), today: self.today()})
+              .then(function (response) {
+                $log.debug(response);
 
-              resolve(self.convert(films));
+                let edis = {};
 
-            }, function (error) {
-              reject(error);
-            });
+                response.films.forEach((film, index) => {
+                  for (let type in film.types) {
+                    edis[film.types[type].edi] = index;
+                  }
+                });
+
+                response.today.forEach(film => {
+                  response.films[edis[film.edi]].today = true;
+                });
+
+                $localStorage.films = response.films;
+                resolve(response.films);
+              });
 
           }
 
         });
 
       },
+
+      films: function () {
+        let self = this;
+
+        return $q(function (resolve, reject) {
+
+          Api.films(films => {
+            resolve(self.convert(films));
+          }, error => {
+            reject(error);
+          });
+
+        });
+
+      },
+
+      today: function () {
+        return $q(function (resolve, reject) {
+
+          Api.films({date: moment().format('YYYYMMDD')}, data => {
+            resolve(data.films);
+          }, error => {
+            reject(error);
+          });
+
+        });
+      },
+
+      // Api.today(params, () => {
+
+      // }, error => {
+      //   reject(error);
+      // });
+      // applyToday: today
 
       convert: films => {
 
@@ -36,7 +82,7 @@ angular.module('gulp-angular')
           imax: /^\(IMAX\) /,
           two: /^\(2[dD]\) /,
           i3d: /^\((3[dD] IMAX|IMAX 3-?[dD])\) /,
-          unlimited: / (-\s)?Unlimited (Card\s)?Screening/,
+          unlimited: / (-\s)?Unlimited (Card\s)?Screening/
         };
 
         let converted = films.films.map(inFilm => {
@@ -44,7 +90,7 @@ angular.module('gulp-angular')
 
           let outFilm = {
             title: inFilm.title,
-            url: inFilm.inFilm_url,
+            url: inFilm.film_url,
             classification: inFilm.classification,
             advisory: inFilm.advisory,
             poster: inFilm.poster_url,
@@ -79,7 +125,7 @@ angular.module('gulp-angular')
           return outFilm;
         });
 
-        angular.forEach(converted, function (film, i) {
+        converted.forEach(function (film, i) {
           if (film) {
             for (var i2 = i + 1; i2 < converted.length; i2++) {
               if (converted[i2].title === film.title) {
@@ -91,7 +137,7 @@ angular.module('gulp-angular')
         });
 
         films = converted.filter(film => film);
-        $localStorage.films = films;
+        // $localStorage.films = films;
 
         return films;
       }
