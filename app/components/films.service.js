@@ -32,6 +32,10 @@ angular.module('gulp-angular')
                   response.films[edis[film.edi]].today = true;
                 });
 
+                $localStorage.options.hidden.forEach(edi => {
+                  response.films[edis[edi]].hidden = true;
+                });
+
                 $localStorage.films = response.films;
                 resolve(response.films);
               }, error => {

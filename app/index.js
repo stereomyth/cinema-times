@@ -21,7 +21,9 @@
     .config(function ($logProvider) {
       $logProvider.debugEnabled(true);
       if (!localStorage['ngStorage-options']) {
-        localStorage['ngStorage-options'] = JSON.stringify({typeTabs: 'none', panel: 'all', cinema: ''});
+        localStorage['ngStorage-options'] = JSON.stringify(
+          {typeTabs: 'none', panel: 'all', cinema: '', hidden: []}
+        );
       }
     })
 

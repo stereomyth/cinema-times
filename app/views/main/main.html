@@ -12,7 +12,7 @@
 	</div>
 	<div class="header-title">Cineworld <em>Now</em></div>
 </header>
-<div class="wrapper">
+<div class="wrapper" ng-class="{'clean': clean}">
 	<div class="container">
 		<section class="options" ng-show="showOptions">
 			<p><strong>Cinema</strong></p>
@@ -66,7 +66,7 @@
 	<section class="today" ng-show="options.panel === 'today'">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-6 col-md-4" ng-repeat="film in films | filter: {today: true}">
+				<div class="col-sm-6 col-md-4" ng-repeat="film in films | filter: {today: true}" ng-class="{ghost: film.hidden}">
 					<div class="film">
 						<div class="film-title">{{film.title}}</div>
 						<img class="film-poster" ng-src="{{film.poster}}" alt="">
@@ -86,11 +86,15 @@
 	<section class="all-films" ng-show="options.panel === 'all'">
 		<div class="container">
 			<div class="row">
-				<div class="col-xs-6 col-sm-3 col-md-2" ng-repeat="film in films">
+				<div class="col-xs-6 col-sm-3 col-md-2" ng-repeat="film in films" ng-class="{ghost: film.hidden}">
 					<div class="film" ng-class-even="'even'">
 						<div class="poster">
 							<div class="poster-title">{{film.title}}</div>
 							<img ng-src="{{film.poster}}">
+							<button class="btn btn-clear" ng-click="film.hidden = !film.hidden">
+								<span class="glyphicon" aria-hidden="true" 
+									ng-class="{'glyphicon-eye-open': film.hidden, 'glyphicon-eye-close': !film.hidden}"></span>
+							</button>
 						</div>
 						<div class="type-tabs type-{{options.typeTabs}}">
 							<div ng-repeat="(name, type) in film.types" class="type-tab {{name}}" 

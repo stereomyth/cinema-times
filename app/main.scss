@@ -105,6 +105,15 @@ header {
     color: white;
   }
 }
+
+.ghost {
+  opacity: 0.3;
+
+  .clean & {
+    display: none;
+  }
+}
+
 .today {
   .film {
     position: relative;
