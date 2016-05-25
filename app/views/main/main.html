@@ -57,17 +57,19 @@
 		<div ng-repeat="film in films" film="film" hidden-list="hidden"></div>
 	</div> -->
 	<div class="selector">
-		<div class="selector-button" ng-class="{active: today}" ng-click="today = true; all = false">Today</div>
-		<div class="selector-button" ng-class="{active: all}" ng-click="all = true; today = false">All Films</div>
+		<div class="selector-button" ng-class="{active: options.panel === 'today'}" 
+			ng-click="options.panel = 'today'">Today</div>
+		<div class="selector-button" ng-class="{active: options.panel === 'all'}" 
+			ng-click="options.panel = 'all'">All Films</div>
 	</div>
 	<section class="today" ng-show="today">
 		Today
 	</section>
-	<section class="all-films" ng-show="all">
+	<section class="all-films" ng-show="options.panel === 'all'">
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-6 col-sm-3 col-md-2" ng-repeat="film in films">
-					<div class="film">
+					<div class="film" ng-class-even="'even'">
 						<div class="poster">
 							<div class="poster-title">{{film.title}}</div>
 							<img ng-src="{{film.poster}}">
