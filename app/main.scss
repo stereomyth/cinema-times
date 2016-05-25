@@ -125,30 +125,45 @@ header {
   }
 }
 
+.all-films {
+  .film {
+    // border-bottom: 1px solid #eeeeee;
+    // padding: 20px 0;
+    margin-bottom: 20px;
+    // text-align: center;
 
+    .film-title {
+      text-transform: uppercase;
+      margin-top: 0;
+    }
 
-}
-.poster {
-  width: 100%;
-  height: 0;
-  padding-bottom: 147%;
-  overflow: hidden;
-  background-color: #eee;
-  position: relative;
-  // border-radius: 4px;
+    // &.even {
+    //   transform: translateY(30px);
+    // }
 
-  img {
-    max-width: 100%;
-    position: absolute;
-    top: 0;
-    border-radius: 4px
   }
-}
+  .poster {
+    width: 100%;
+    height: 0;
+    padding-bottom: 147%;
+    overflow: hidden;
+    background-color: #eee;
+    position: relative;
+    // border-radius: 4px;
 
-.poster-title {
-  text-align: center;
-  padding: 1em;
-  font-size: 20px;
+    img {
+      max-width: 100%;
+      position: absolute;
+      top: 0;
+      border-radius: 4px
+    }
+  }
+
+  .poster-title {
+    text-align: center;
+    padding: 1em;
+    font-size: 20px;
+  }
 }
 
 .type-tabs {
