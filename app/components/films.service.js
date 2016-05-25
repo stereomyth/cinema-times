@@ -34,7 +34,6 @@ angular.module('gulp-angular')
                 $localStorage.films = response.films;
                 resolve(response.films);
               });
-
           }
 
         });
@@ -43,37 +42,26 @@ angular.module('gulp-angular')
 
       films: function () {
         let self = this;
-
         return $q(function (resolve, reject) {
 
-          Api.films(films => {
-            resolve(self.convert(films));
-          }, error => {
-            reject(error);
-          });
+          Api.get({route: 'films', full: true, cinema: $localStorage.options.cinema},
+            films => { resolve(self.convert(films)); },
+            error => { reject(error); }
+          );
 
         });
-
       },
 
       today: function () {
         return $q(function (resolve, reject) {
 
-          Api.films({date: moment().format('YYYYMMDD')}, data => {
-            resolve(data.films);
-          }, error => {
-            reject(error);
-          });
+          Api.get({route: 'films', date: moment().format('YYYYMMDD'), cinema: $localStorage.options.cinema},
+            data => { resolve(data.films); },
+            error => { reject(error); }
+          );
 
         });
       },
-
-      // Api.today(params, () => {
-
-      // }, error => {
-      //   reject(error);
-      // });
-      // applyToday: today
 
       convert: films => {
 
@@ -136,10 +124,7 @@ angular.module('gulp-angular')
           }
         });
 
-        films = converted.filter(film => film);
-        // $localStorage.films = films;
-
-        return films;
+        return converted.filter(film => film);
       }
 
     };
