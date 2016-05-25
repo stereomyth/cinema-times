@@ -4,8 +4,7 @@ angular.module('gulp-angular')
   .factory('Res', function ($q, $log, $localStorage, moment, Api) {
     return {
 
-      get: function (action, route) {
-        route = route || action;
+      get: function (action, extParams) {
 
         return $q(function (resolve, reject) {
           if ($localStorage[action]) {
@@ -13,10 +12,11 @@ angular.module('gulp-angular')
             resolve($localStorage[action]);
           } else {
             $log.debug('remote', action);
+            let params = angular.extend({route: action }, extParams);
 
-            Api[action](function (response) {
-              $localStorage[action] = response[route];
-              resolve(response[route]);
+            Api.get(params, function (response) {
+              $localStorage[action] = response[action];
+              resolve(response[action]);
             }, function (error) {
               reject(error);
             });
