@@ -162,11 +162,6 @@ header {
     height: 6px;
     // margin-top: 1px;
 
-    &.two { background-color: #e4131d; }
-    &.three { background-color: #13e41d; }
-    &.i3d { background-color: #131de4; }
-    // &.imax { background-color: green; }
-
     .type-label {
       display: none;
     }
@@ -179,10 +174,13 @@ header {
     padding: 3px 6px;
     margin-right: 3px;
     margin-top: 3px;
-  
+  }
+
+  .type-labels &, .type-colours & {
     &.two { background-color: #e4131d; }
     &.three { background-color: #13e41d; }
     &.i3d { background-color: #131de4; }
+    &.unlimited { background-color: black; }
   }
 
   .type-none & {
