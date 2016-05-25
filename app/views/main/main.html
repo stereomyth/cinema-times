@@ -62,8 +62,26 @@
 		<div class="selector-button" ng-class="{active: options.panel === 'all'}" 
 			ng-click="options.panel = 'all'">All Films</div>
 	</div>
-	<section class="today" ng-show="today">
-		Today
+
+	<section class="today" ng-show="options.panel === 'today'">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-md-4" ng-repeat="film in films | filter: {today: true}">
+					<div class="film">
+						<div class="film-title">{{film.title}}</div>
+						<img class="film-poster" ng-src="{{film.poster}}" alt="">
+						<div ng-repeat="type in film.types">
+							<div>{{type.name}}</div>
+							<div>
+								<div class="btn btn-default" ng-repeat="show in shows">
+									{{show.time}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 	<section class="all-films" ng-show="options.panel === 'all'">
 		<div class="container">

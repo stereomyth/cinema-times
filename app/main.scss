@@ -105,17 +105,25 @@ header {
     color: white;
   }
 }
+.today {
+  .film {
+    position: relative;
+    min-height: 150px;
+    padding-left: 100px;
+    margin-bottom: 20px;
+  }
 
-.film {
-  // border-bottom: 1px solid #eeeeee;
-  // padding: 20px 0;
-  margin-bottom: 20px;
-  // text-align: center;
+  .film-poster {
+    max-height: 150px;
+    position: absolute;
+    top: 0;
+    left: -15px;
+  }
 
   .film-title {
-    text-transform: uppercase;
-    margin-top: 0;
+    font-size: 1.6em;
   }
+}
 
 
 
