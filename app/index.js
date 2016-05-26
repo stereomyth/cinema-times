@@ -2,7 +2,7 @@
 (function() {
   'use strict';
 
-  angular.module('gulp-angular',
+  angular.module('cineworld',
     ['ngAnimate', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ngResource', 'ngRoute', 'ngStorage'])
 
     .config(function ($routeProvider) {

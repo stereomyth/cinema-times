@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('gulp-angular')
+angular.module('cineworld')
   .directive('film', function ($localStorage) {
     return {
 

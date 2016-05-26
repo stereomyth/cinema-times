@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('gulp-angular')
+angular.module('cineworld')
   .directive('showTimes', function (Api, $log, moment) {
     return {
 

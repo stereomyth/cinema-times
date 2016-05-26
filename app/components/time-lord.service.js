@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('gulp-angular')
+angular.module('cineworld')
   .factory('TimeLord', function ($resource, $localStorage, moment, $log) {
 
     return {

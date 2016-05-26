@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('gulp-angular')
+angular.module('cineworld')
   .filter('removeType', function() {
     return input => input
       // .replace('(2D) ','')

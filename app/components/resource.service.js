@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('gulp-angular')
+angular.module('cineworld')
   .factory('Res', function ($q, $log, $localStorage, moment, Api) {
     return {
 

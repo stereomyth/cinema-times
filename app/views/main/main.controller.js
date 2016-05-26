@@ -1,7 +1,7 @@
 
   'use strict';
 
-  angular.module('gulp-angular')
+  angular.module('cineworld')
     .controller('MainController', function($scope, $log, $localStorage, Res, Films) {
 
       // TimeLord.check();
@@ -37,8 +37,6 @@
       $scope.clearHidden = () => {
         $localStorage.options.hidden = [];
       };
-
-      
 
     }
   );
