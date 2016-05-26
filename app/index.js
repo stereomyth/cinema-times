@@ -29,6 +29,9 @@
           hidden: []
         });
       }
+      if (!localStorage['ngStorage-stamps']) {
+        localStorage['ngStorage-stamps'] = JSON.stringify({});
+      }
     })
 
     .constant('moment', moment);

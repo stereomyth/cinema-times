@@ -16,6 +16,7 @@ angular.module('cineworld')
 
             Api.get(params, function (response) {
               $localStorage[action] = response[action];
+              $localStorage.stamps[action] = moment();
               resolve(response[action]);
             }, function (error) {
               reject(error);

@@ -10,7 +10,7 @@ angular.module('cineworld')
 
         return $q(function (resolve, reject) {
 
-          if ($localStorage.films) {
+          if ($localStorage.films && moment($localStorage.stamps.films).isSame(moment(), 'day')) {
             $log.debug('local films');
             resolve($localStorage.films);
           } else {
@@ -18,8 +18,6 @@ angular.module('cineworld')
 
             $q.all({films: self.films(params), today: self.today(params)})
               .then(function (response) {
-                $log.debug(response);
-
                 let edis = {};
 
                 response.films.forEach((film, index) => {
@@ -37,6 +35,7 @@ angular.module('cineworld')
                 });
 
                 $localStorage.films = response.films;
+                $localStorage.stamps.films = moment();
                 resolve(response.films);
               }, error => {
                 reject(error);
