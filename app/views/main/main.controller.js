@@ -35,5 +35,26 @@ angular.module('cineworld')
       $localStorage.options.hidden = [];
     };
 
+    $scope.$watch('options.panel', function (panel) {
+      $scope.filter = panel === 'today' ? {today: true} : '';
+    });
+
+    let hidden = $localStorage.options.hidden;
+
+    $scope.objl = obj => Object.keys(obj).length;
+
+    $scope.toggleHidden = film => {
+      if (film.hidden) {
+        for (let type in film.types) {
+          hidden.splice(hidden.findIndex(element => element === film.types[type].edi), 1);
+        }
+      } else {
+        for (let type in film.types) {
+          hidden.push(film.types[type].edi);
+        }
+      }
+      film.hidden = !film.hidden;
+    };
+
   })
 ;

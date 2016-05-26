@@ -4,6 +4,22 @@ $icon-font-path: 'fonts/';
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+@mixin at-least($device-width) {
+  @media screen and (min-width: $device-width) {
+    @content;
+  }
+}
+
+@mixin until($device-width) {
+  @media screen and (max-width: $device-width - 1px) {
+    @content;
+  }
+}
+
+$tablet: 768px;
+$laptop: 992px;
+$desktop: 1200px;
+
 .browserupgrade {
   margin: 0.2em 0;
   background: #ccc;
@@ -113,10 +129,15 @@ header {
     display: none;
   }
 }
-
+.film-column {
+  padding-left: 15px;
+  padding-right: 15px;
+}
 .film {
   margin-bottom: 20px;
   position: relative;
+
+
 }
 
 .film-frame {
@@ -150,6 +171,17 @@ header {
 }
 
 .today {
+  .film-column {
+    float: left;
+    width: 100%;
+
+    @include at-least($tablet) {
+      width: 50%;
+    }
+    @include at-least($laptop) {
+      width: 33.33333%;
+    }
+  }
   .film {
     min-height: 150px;
     padding-left: 115px;
@@ -172,7 +204,21 @@ header {
   }
 }
 
-.all-films {
+.all {
+  .film-column {
+    float: left;
+    width: 50%;
+
+    @include at-least($tablet) {
+      width: 33.33333%;
+    }
+    @include at-least($laptop) {
+      width: 25%;
+    }
+    @include at-least($desktop) {
+      width: 20%;
+    }
+  }
   .film {
     &.even {
       // transform: translateY(30px);
