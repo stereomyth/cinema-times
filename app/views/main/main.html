@@ -1,6 +1,6 @@
 <header class="clearfix">
 	<div class="pull-left">
-		<button class="btn btn-clear" ng-click="clean = !clean">
+		<button class="btn btn-clear" ng-click="options.clean = !options.clean">
 			<span class="glyphicon" aria-hidden="true" 
 				ng-class="{'glyphicon-eye-open': clean, 'glyphicon-eye-close': !clean}"></span>
 		</button>
@@ -12,16 +12,13 @@
 	</div>
 	<div class="header-title">Cineworld <em>Now</em></div>
 </header>
-<div class="wrapper" ng-class="{'clean': clean}">
+<div class="wrapper type-{{options.typeTabs}}" ng-class="{'clean': options.clean}">
 	<div class="container">
 		<section class="options" ng-show="showOptions">
 			<p><strong>Cinema</strong></p>
 			<select ng-model="options.cinema" ng-change="selectCinema()" class="form-control"
 				ng-options="cinema.id as cinema.name for cinema in cinemas">
 			</select>
-			<!-- <div class="clearfix">
-				<button class="btn btn-default pull-left" ng-click="clean=!clean">Show Hidden</button>
-			</div> -->
 			<hr>
 			<div>
 				<p><strong>All films type indicator</strong></p>
@@ -53,9 +50,7 @@
 			</div>
 		</section>
 	</div>
-	<!-- <div ng-class="{'clean': clean}">
-		<div ng-repeat="film in films" film="film" hidden-list="hidden"></div>
-	</div> -->
+
 	<div class="selector">
 		<div class="selector-button" ng-class="{active: options.panel === 'today'}" 
 			ng-click="options.panel = 'today'">Today</div>
