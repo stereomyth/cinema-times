@@ -6,8 +6,6 @@
 
       // TimeLord.check();
 
-      // $scope.clean = true;
-
       $scope.options = $localStorage.options;
 
       Res.get('cinemas', {cinema: null}).then(cinemas => { $scope.cinemas = cinemas; });
@@ -40,7 +38,7 @@
         $localStorage.options.hidden = [];
       };
 
-      $scope.objl = obj => Object.keys(obj).length;
+      
 
     }
   );

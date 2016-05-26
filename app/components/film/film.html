@@ -1,23 +1,28 @@
-<div class="film" ng-class="{'hiddenz':film.hidden}" ng-if="v.shows">
-  <img ng-src="http://www.cineworld.co.uk/assets/media/films/{{film.id}}_poster_iphone.jpg">
-  
-  <!-- <img ng-src="{{film.still_url}}"> -->
-  
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-4">
-        <img ng-src="{{film.poster_url}}">
+<div class="film" ng-class-even="'even'">
+  <div class="film-frame">
+    <div class="film-poster" style="background-image: url({{film.poster}});"></div>
+    <div class="film-overlay">
+      <button class="btn btn-clear" ng-click="toggleHidden(film)">
+        <span class="glyphicon" aria-hidden="true" 
+          ng-class="{'glyphicon-eye-open': film.hidden, 'glyphicon-eye-close': !film.hidden}"></span>
+      </button>
+    </div>
+  </div>
+  <div>
+    <div class="film-title">{{film.title}}</div>
+    <div class="type-tabs">
+      <div ng-repeat="(name, type) in film.types" class="type-tab {{name}}" 
+        ng-style="{width: 100 / objl(film.types) + '%'}">
+        <span class="type-label">{{type.name}}</span>
       </div>
-      <div class="col-xs-8">
-        <h4 class="film-title">{{film.title | removeType}}</h4>
-        <div><span ng-show="film.imax">IMAX </span><span ng-show="film['3D']"> 3D</span></div>
-        <!-- <div show-times="film" ng-if="!film.hidden"></div> -->
-        <div>
-          <button class="btn btn-default" ng-click="hideFilm(film)">hide</button>
+    </div>
+    <div ng-repeat="type in film.types" class="film-shows">
+      <div>{{type.name}}</div>
+      <div>
+        <div class="btn btn-default" ng-repeat="show in shows">
+          {{show.time}}
         </div>
       </div>
     </div>
   </div>
-  
-  
 </div>

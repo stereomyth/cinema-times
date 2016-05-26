@@ -61,19 +61,9 @@
 	<section class="today" ng-show="options.panel === 'today'">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-6 col-md-4" ng-repeat="film in films | filter: {today: true}" ng-class="{ghost: film.hidden}">
-					<div class="film">
-						<div class="film-title">{{film.title}}</div>
-						<img class="film-poster" ng-src="{{film.poster}}" alt="">
-						<div ng-repeat="type in film.types">
-							<div>{{type.name}}</div>
-							<div>
-								<div class="btn btn-default" ng-repeat="show in shows">
-									{{show.time}}
-								</div>
-							</div>
-						</div>
-					</div>
+				<div class="col-sm-6 col-md-4" ng-repeat="film in films | filter: {today: true}" 
+					ng-class="{ghost: film.hidden}">
+					<div film="film"></div>
 				</div>
 			</div>
 		</div>
@@ -82,22 +72,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-6 col-sm-3 col-md-2" ng-repeat="film in films" ng-class="{ghost: film.hidden}">
-					<div class="film" ng-class-even="'even'">
-						<div class="poster">
-							<div class="poster-title">{{film.title}}</div>
-							<img ng-src="{{film.poster}}">
-							<button class="btn btn-clear" ng-click="film.hidden = !film.hidden">
-								<span class="glyphicon" aria-hidden="true" 
-									ng-class="{'glyphicon-eye-open': film.hidden, 'glyphicon-eye-close': !film.hidden}"></span>
-							</button>
-						</div>
-						<div class="type-tabs type-{{options.typeTabs}}">
-							<div ng-repeat="(name, type) in film.types" class="type-tab {{name}}" 
-								ng-style="{width: 100 / objl(film.types) + '%'}">
-								<span class="type-label">{{type.name}}</span>
-							</div>
-						</div>
-					</div>
+					<div film="film"></div>
 				</div>
 			</div>
 		</div>

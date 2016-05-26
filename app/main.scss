@@ -114,69 +114,78 @@ header {
   }
 }
 
+.film {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.film-frame {
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+
+  .type-colours & {
+    border-radius: 3px 3px 0 0;
+  }
+}
+
+.film-poster {
+  width: 100%;
+  height: 0;
+  padding-bottom: 148%;
+  overflow: hidden;
+  background-color: #eee;
+  background-size: cover;
+}
+
+.film-overlay {
+  position: absolute;
+  background-color: rgba(black, 0.4);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: white;
+  padding: 10px;
+}
+
 .today {
   .film {
-    position: relative;
     min-height: 150px;
-    padding-left: 100px;
-    margin-bottom: 20px;
+    padding-left: 115px;
   }
 
-  .film-poster {
-    max-height: 150px;
+  .film-frame {
+    width: 100px;
+    float: left;
+    margin-right: 15px;
     position: absolute;
-    top: 0;
-    left: -15px;
+    left: 0;
   }
 
   .film-title {
     font-size: 1.6em;
   }
+
+  .type-tabs {
+    display: none;
+  }
 }
 
 .all-films {
   .film {
-    // border-bottom: 1px solid #eeeeee;
-    // padding: 20px 0;
-    margin-bottom: 20px;
-    // text-align: center;
-
-    .film-title {
-      text-transform: uppercase;
-      margin-top: 0;
-    }
-
-    // &.even {
-    //   transform: translateY(30px);
-    // }
-
-  }
-  .poster {
-    width: 100%;
-    height: 0;
-    padding-bottom: 147%;
-    overflow: hidden;
-    background-color: #eee;
-    position: relative;
-    // border-radius: 4px;
-
-    img {
-      max-width: 100%;
-      position: absolute;
-      top: 0;
-      border-radius: 4px
+    &.even {
+      // transform: translateY(30px);
     }
   }
-
-  .poster-title {
-    text-align: center;
-    padding: 1em;
-    font-size: 20px;
+  .film-title, .film-shows {
+    display: none;
   }
 }
 
 .type-tabs {
-  overflow: auto
+  overflow: hidden;
+  border-radius: 0 0 3px 3px;
 }
 
 .type-tab {
@@ -184,6 +193,7 @@ header {
 
   .type-colours & {  
     height: 6px;
+    background-color: red;
     // margin-top: 1px;
 
     .type-label {

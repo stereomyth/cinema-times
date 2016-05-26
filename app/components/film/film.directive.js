@@ -1,24 +1,34 @@
 'use strict';
 
 angular.module('gulp-angular')
-  .directive('film', function () {
+  .directive('film', function ($localStorage) {
     return {
 
       restrict: 'A',
       templateUrl: 'components/film/film.html',
       scope: {
-        film: '=',
-        hiddenList: '='
+        film: '='
       },
+
       link: function (scope) {
+        let hidden = $localStorage.options.hidden;
 
-        scope.hideFilm = function (film) {
-          film.hidden = scope.hiddenList[film.edi] = !scope.hiddenList[film.edi];
+        scope.toggleHidden = film => {
+          if (film.hidden) {
+            for (let type in film.types) {
+              hidden.splice(hidden.findIndex(element => element === film.types[type].edi), 1);
+            }
+          } else {
+            for (let type in film.types) {
+              hidden.push(film.types[type].edi);
+            }
+          }
+          film.hidden = !film.hidden;
         };
 
-        scope.v = {
-          shows: true
-        };
+        // scope.v = {
+        //   shows: true
+        // };
 
       }
 
