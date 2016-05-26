@@ -4,8 +4,6 @@
   angular.module('cineworld')
     .controller('MainController', function($scope, $log, $localStorage, Res, Films) {
 
-      // TimeLord.check();
-
       $scope.options = $localStorage.options;
 
       Res.get('cinemas', {cinema: null}).then(cinemas => { $scope.cinemas = cinemas; });
