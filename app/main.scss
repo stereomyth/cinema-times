@@ -170,6 +170,17 @@ header {
   padding: 10px;
 }
 
+.overlay-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 10px;
+  font-size: 11px;
+  text-align: center;
+  width: 100%;
+  background: linear-gradient(to top, rgba(black, 0.7), transparent);
+}
+
 .today {
   .film-column {
     float: left;
@@ -200,7 +211,11 @@ header {
   }
 
   .film-title {
-    font-size: 1.6em;
+    font-size: 1.3em;
+  }
+
+  .overlay-title {
+    display: none;
   }
 
   .type-tabs {
