@@ -57,7 +57,7 @@
     <div class="selector-button" ng-class="{active: options.panel === 'all'}" 
       ng-click="options.panel = 'all'">All Films</div>
   </div>
-
+  <!-- TODO: add blank films layout to show before loading -->
   <section ng-class="options.panel">
     <div class="container">
       <div class="row">
@@ -84,7 +84,7 @@
               <div ng-repeat="type in film.types" class="film-shows">
                 <div>{{type.name}}</div>
                 <div>
-                  <div class="btn btn-default" ng-repeat="show in shows">
+                  <div class="btn btn-default" ng-repeat="show in type.shows" ng-class="{expired: !show.available}">
                     {{show.time}}
                   </div>
                 </div>

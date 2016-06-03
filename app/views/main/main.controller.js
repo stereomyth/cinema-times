@@ -1,14 +1,17 @@
 'use strict';
 
 angular.module('cineworld')
-  .controller('MainController', function($scope, $log, $localStorage, Res, Films) {
+  .controller('MainController', function($scope, $log, $localStorage, Res, Films, Shows) {
 
     $scope.options = $localStorage.options;
 
     Res.get('cinemas', {cinema: null}).then(cinemas => { $scope.cinemas = cinemas; });
 
     let getFilms = () => {
-      Films.get().then(films => { $scope.films = films; });
+      Films.get().then(films => {
+        $scope.films = films;
+        Shows.get();
+      });
     };
 
     if ($scope.options.cinema) {
