@@ -181,6 +181,10 @@ header {
     @include at-least($laptop) {
       width: 33.33333%;
     }
+
+    &:not(.playing) {
+      display: none;
+    }
   }
   .film {
     min-height: 150px;

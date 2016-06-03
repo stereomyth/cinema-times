@@ -61,8 +61,8 @@
   <section ng-class="options.panel">
     <div class="container">
       <div class="row">
-        <div class="film-column" ng-repeat="film in films | filter: filter" ng-class="{ghost: film.hidden}">
-          <div class="film" ng-class-even="'even'">
+        <div class="film-column" ng-repeat="film in films" ng-class="{ghost: film.hidden, playing: film.today}">
+          <div class="film" ng-class-even="'even'" data-title="{{film.title}}">
             <div class="film-frame">
               <div class="film-poster" style="background-image: url({{film.poster}});"></div>
               <div class="film-overlay">
