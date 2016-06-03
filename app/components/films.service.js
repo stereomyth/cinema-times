@@ -31,7 +31,9 @@ angular.module('cineworld')
                 });
 
                 $localStorage.options.hidden.forEach(edi => {
-                  response.films[edis[edi]].hidden = true;
+                  if (response.films[edis[edi]]) {
+                    response.films[edis[edi]].hidden = true;
+                  }
                 });
 
                 $localStorage.films = response.films;
