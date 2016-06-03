@@ -181,6 +181,14 @@ header {
   background: linear-gradient(to top, rgba(black, 0.7), transparent);
 }
 
+.film-shows {
+  // display: none;
+
+  .expired {
+    display: none;
+  }
+}
+
 .today {
   .film-column {
     float: left;

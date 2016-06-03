@@ -79,6 +79,7 @@ angular.module('cineworld')
           two: /^\(2[dD]\) /,
           i3d: /^\((3[dD] IMAX|IMAX 3-?[dD])\) /,
           unlimited: / (-\s)?Unlimited (Card\s)?Screening/
+          // TODO: autistm / kid friendly screenings
         };
 
         let converted = films.films.map(inFilm => {
