@@ -33,12 +33,13 @@ angular.module('cineworld')
                         };
                         type.shows.push(show);
                       });
+                      self.gauge(type.shows);
                     });
                   } else {
                     $log.debug('local', film.title, type.name);
+                    self.gauge(type.shows);
                   }
 
-                  self.gauge(type.shows);
                 });
 
               }
