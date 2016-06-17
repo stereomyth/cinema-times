@@ -5,7 +5,7 @@
   angular.module('cineworld',
     ['ngAnimate', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ngResource', 'ngRoute', 'ngStorage'])
 
-    .config(function ($routeProvider) {
+    .config(function ($routeProvider, $logProvider, $locationProvider) {
       $routeProvider
         .when('/', {
           templateUrl: 'views/main/main.html',
@@ -20,6 +20,7 @@
 
     .config(function ($logProvider) {
       $logProvider.debugEnabled(true);
+      $locationProvider.html5Mode(true);
       if (!localStorage['ngStorage-options']) {
         localStorage['ngStorage-options'] = JSON.stringify({
           typeTabs: 'none',
