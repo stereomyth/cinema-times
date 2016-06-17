@@ -3,7 +3,6 @@
 A minimal site for current film times at Cineworld
 
 
-
 ## Marquee
 
 Angular frontend
@@ -11,9 +10,9 @@ Angular frontend
 - app icon
 - name?
 - url
-- interface icons
-	- settings gear
-	- hide/show eyes
+- ~~interface icons~~
+	- ~~settings gear~~
+	- ~~hide/show eyes~~
 - webapp ios / android package
 - options
 	- poster or screenshot
