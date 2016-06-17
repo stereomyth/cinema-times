@@ -9,5 +9,6 @@
 		}
 	],
 	"display": "standalone",
-	"orientation": "portrait"
+	"orientation": "portrait",
+	"background_color": "#2d2b33"
 }
