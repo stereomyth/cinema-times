@@ -78,7 +78,8 @@ angular.module('cineworld')
           imax: /^\(IMAX\) /,
           two: /^\(2[dD]\) /,
           i3d: /^\((3[dD] IMAX|IMAX 3-?[dD])\) /,
-          unlimited: / (-\s)?Unlimited (Card\s)?Screening/
+          unlimited: / (-\s)?Unlimited (Card\s)?Screening/,
+          dubbed: / (-\s)?\[Dubbed Version\]/
           // TODO: autistm / kid friendly screenings
         };
 
@@ -107,6 +108,9 @@ angular.module('cineworld')
           } else if (reg.unlimited.test(inFilm.title)) {
             type = 'unlimited';
             typeName = 'U';
+          } else if (reg.dubbed.test(inFilm.title)) {
+            type = 'dubbed';
+            typeName = 'Dub';
           } else {
             type = 'two';
             typeName = '2D';
