@@ -51,12 +51,14 @@ angular.module('cineworld')
         for (let type in film.types) {
           hidden.splice(hidden.findIndex(element => element === film.types[type].edi), 1);
         }
+        film.hidden = !film.hidden;
+        Shows.film(film);
       } else {
         for (let type in film.types) {
           hidden.push(film.types[type].edi);
         }
+        film.hidden = !film.hidden;
       }
-      film.hidden = !film.hidden;
     };
 
   })
