@@ -26,9 +26,13 @@ $desktop: 1200px;
   color: #000;
   padding: 0.2em 0;
 }
+html {
+  font-size: 100%;
+}
 
 body {
   background-color: #e41d13;
+  font-family: 'sofia pro';
 }
 
 pre {
@@ -43,12 +47,12 @@ header, footer {
 }
 
 header {
-  text-transform: uppercase;
+  // text-transform: uppercase;
 }
 
 .header-title {
-  padding-top: 4px;
-  font-size: 18px;
+  padding-top: 6px;
+  font-size: 1.125rem;
 }
 
 .btn-clear {
