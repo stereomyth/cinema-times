@@ -51,7 +51,7 @@ angular.module('cineworld')
                 self.gauge(type.shows);
               });
             } else {
-              $log.debug('local', film.title, type.name);
+              $log.debug('local:', film.title, '-', type.name);
               self.gauge(type.shows);
             }
 

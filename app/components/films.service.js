@@ -11,10 +11,10 @@ angular.module('cineworld')
         return $q(function (resolve, reject) {
 
           if ($localStorage.films && moment($localStorage.stamps.films).isSame(moment(), 'day')) {
-            $log.debug('local films');
+            $log.debug('local: films');
             resolve($localStorage.films);
           } else {
-            $log.debug('remote films');
+            $log.debug('remote: films');
 
             $q.all({films: self.films(params), today: self.today(params)})
               .then(function (response) {

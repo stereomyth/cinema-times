@@ -8,10 +8,10 @@ angular.module('cineworld')
 
         return $q(function (resolve, reject) {
           if ($localStorage[action]) {
-            $log.debug('local', action);
+            $log.debug('local:', action);
             resolve($localStorage[action]);
           } else {
-            $log.debug('remote', action);
+            $log.debug('remote:', action);
             let params = angular.extend({route: action }, extParams);
 
             Api.get(params, function (response) {
