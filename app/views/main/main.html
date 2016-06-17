@@ -83,8 +83,8 @@
               </div>
               <div ng-repeat="type in film.types" class="film-shows">
                 <div>{{type.name}}</div>
-                <div>
-                  <div class="btn btn-default" ng-repeat="show in type.shows" ng-class="{expired: !show.available}">
+                <div class="show-row">
+                  <div class="show-time" ng-repeat="show in type.shows" ng-class="{expired: !show.available}">
                     {{show.time}}
                   </div>
                 </div>

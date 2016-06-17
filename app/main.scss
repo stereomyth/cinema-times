@@ -202,6 +202,32 @@ header {
   }
 }
 
+.show-row {
+  overflow: auto;
+  white-space: nowrap;
+  margin-right: -15px;
+  margin-left: -15px;
+  margin-bottom: 10px;
+  // padding-left: 15px;
+  padding-left: 5px;
+  // padding-right: 15px;
+
+  &::-webkit-scrollbar { 
+      display: none; 
+  }
+
+}
+
+.show-time {
+  display: inline-block;
+  // border: 1px solid red;
+  // width: 100px;
+  line-height: 1em;
+  padding: 10px;
+  padding-bottom: 7px;
+  font-weight: 100;
+}
+
 .today {
   .film-column {
     float: left;
