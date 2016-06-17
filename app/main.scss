@@ -35,6 +35,11 @@ body {
   font-family: 'sofia pro';
 }
 
+.view {
+  position: relative;
+  min-height: 100vh;
+}
+
 pre {
   white-space: inherit;
 }
@@ -309,4 +314,7 @@ header {
 
 footer {
   // margin-top: 20px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
