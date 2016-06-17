@@ -63,9 +63,9 @@
       <div class="row">
         <div class="film-column" ng-repeat="film in films" ng-class="{ghost: film.hidden, playing: film.today}">
           <div class="film" ng-class-even="'even'" data-title="{{film.title}}">
-            <div class="film-frame">
+            <div class="film-frame" ng-click="film.overlay = !film.overlay">
               <div class="film-poster" style="background-image: url({{film.poster}});"></div>
-              <div class="film-overlay">
+              <div class="film-overlay" ng-show="film.overlay">
                 <button class="btn btn-clear" ng-click="toggleHidden(film)">
                   <span class="glyphicon" aria-hidden="true" 
                     ng-class="{'glyphicon-eye-open': film.hidden, 'glyphicon-eye-close': !film.hidden}"></span>
