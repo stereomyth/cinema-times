@@ -32,7 +32,7 @@ html {
 
 body {
   background-color: #e41d13;
-  font-family: 'sofia pro';
+  font-family: 'sofia-pro', sans-serif;
 }
 
 .view {
@@ -231,7 +231,7 @@ header {
   line-height: 1em;
   padding: 10px;
   padding-bottom: 7px;
-  font-weight: 100;
+  font-weight: 300;
 }
 
 .today {
@@ -266,7 +266,7 @@ header {
   .film-title {
     font-size: 1.3em;
     margin-bottom: 1em;
-    font-weight: 500;
+    font-weight: 300;
   }
 
   .overlay-title {
