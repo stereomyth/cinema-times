@@ -83,7 +83,7 @@
                   <span class="type-label">{{type.name}}</span>
                 </div>
               </div>
-              <div ng-repeat="type in film.types" class="film-shows">
+              <div ng-repeat="type in film.types" class="film-shows" ng-show="type.shows.length">
                 <div>{{type.name}}</div>
                 <div class="show-row">
                   <div class="show-time" ng-repeat="show in type.shows" ng-class="{expired: !show.available}">
