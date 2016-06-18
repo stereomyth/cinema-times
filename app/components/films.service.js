@@ -79,10 +79,12 @@ angular.module('cineworld')
           two: /^\(2[dD]\) /,
           i3d: /^\((3[dD] IMAX|IMAX 3-?[dD])\) /,
           unlimited: / (-\s)?Unlimited (Card\s)?Screening/,
-          dubbed: / (-\s)?\[Dubbed Version\]/
-          // TODO: autistm / kid friendly screenings
+          dubbed: / (-\s)?\[Dubbed Version\]/,
+          m4j: /^M4J /,
+          afs: /^Autism Friendly Screening: /
         };
 
+        // TODO: rebuild as breaking loop
         let converted = films.films.map(inFilm => {
           let type, typeName;
 
@@ -108,6 +110,12 @@ angular.module('cineworld')
           } else if (reg.unlimited.test(inFilm.title)) {
             type = 'unlimited';
             typeName = 'U';
+          } else if (reg.m4j.test(inFilm.title)) {
+            type = 'm4j';
+            typeName = 'M4J';
+          } else if (reg.afs.test(inFilm.title)) {
+            type = 'afs';
+            typeName = 'AF';
           } else if (reg.dubbed.test(inFilm.title)) {
             type = 'dubbed';
             typeName = 'Dub';
