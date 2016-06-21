@@ -51,12 +51,19 @@ const testLintOptions = {
 gulp.task('lint', lint('app/**/*.js'));
 gulp.task('lint:test', lint('test/spec/**/*.js', testLintOptions));
 
-gulp.task('html', ['styles', 'scripts'], () => {
-  return gulp.src('app/*.html')
+gulp.task('html', ['inject', 'templates'], () => {
+  return gulp.src('.tmp/*.html')
+  // return gulp.src('app/*.html')
     .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
+    .pipe($.if('*.js', $.ngAnnotate()))
     .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', $.cssnano()))
     .pipe($.if('*.html', $.htmlmin({collapseWhitespace: true})))
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('templates', () => {
+  return gulp.src(['app/components/**/*.html','app/views/**/*.html'], {base: 'app'})
     .pipe(gulp.dest('dist'));
 });
 
