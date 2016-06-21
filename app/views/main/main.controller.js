@@ -46,10 +46,14 @@ angular.module('cineworld')
 
     $scope.objl = obj => Object.keys(obj).length;
 
+    let remove = (film, type) => {
+        hidden.splice(hidden.findIndex(element => element === film.types[type].edi), 1);
+    };
+
     $scope.toggleHidden = film => {
       if (film.hidden) {
         for (let type in film.types) {
-          hidden.splice(hidden.findIndex(element => element === film.types[type].edi), 1);
+          remove(film, type);
         }
         film.hidden = !film.hidden;
         Shows.film(film);

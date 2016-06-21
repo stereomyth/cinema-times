@@ -51,6 +51,9 @@ angular.module('cineworld')
                   type.shows.push(show);
                 });
                 type.shows = self.gauge(type.shows);
+                if (type.shows.length) {
+                  film.validCount++;
+                }
               });
             } else {
               $log.debug('local:', film.title, '-', type.name);
@@ -75,7 +78,7 @@ angular.module('cineworld')
             }
           });
         }
-        
+
         return available;
       }
 
