@@ -30,7 +30,9 @@ angular.module('cineworld')
 
       film: function (film) {
         let self = this;
+
         if (film.today && !film.hidden) {
+          film.validCount = 0;
 
           angular.forEach(film.types, type => {
             if (!type.shows) {
@@ -48,11 +50,14 @@ angular.module('cineworld')
                   };
                   type.shows.push(show);
                 });
-                self.gauge(type.shows);
+                type.shows = self.gauge(type.shows);
               });
             } else {
               $log.debug('local:', film.title, '-', type.name);
-              self.gauge(type.shows);
+              type.shows = self.gauge(type.shows);
+              if (type.shows.length) {
+                film.validCount++;
+              }
             }
 
           });
@@ -61,13 +66,17 @@ angular.module('cineworld')
       },
 
       gauge: function (shows) {
+        let available = [];
+
         if (shows && shows.length) {
           shows.forEach(show => {
             if (moment(show.time, 'HH:mm').add(25, 'm').isAfter(moment())) {
-              show.available = true;
+              available.push(show);
             }
           });
         }
+        
+        return available;
       }
 
     };
