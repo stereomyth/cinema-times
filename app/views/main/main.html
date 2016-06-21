@@ -1,12 +1,12 @@
 <header class="clearfix">
   <div class="pull-left">
-    <button class="btn btn-clear" ng-click="options.clean = !options.clean">
+    <button class="head-button" ng-click="options.clean = !options.clean">
       <span class="glyphicon" aria-hidden="true" 
         ng-class="{'glyphicon-eye-open': clean, 'glyphicon-eye-close': !clean}"></span>
     </button>
   </div>
   <div class="pull-right">
-    <button class="btn btn-clear" ng-click="showOptions = !showOptions">
+    <button class="head-button" ng-click="showOptions = !showOptions">
       <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
     </button>
   </div>
@@ -86,7 +86,6 @@
               <div ng-repeat="type in film.types" class="film-shows" ng-show="type.shows.length">
                 <div>{{type.name}}</div>
                 <div class="show-row">
-                  <div class="show-time" ng-repeat="show in type.shows" ng-class="{expired: !show.available}">
                   <div class="show-time" ng-repeat="show in type.shows">
                     {{show.time}}
                   </div>

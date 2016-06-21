@@ -47,7 +47,7 @@ pre {
 header, footer {
   color: white;
   text-align: center;
-  padding: 0.8em;
+  // padding: 0.8em;
   background: linear-gradient(150deg, #df1520, #e65c21);
 }
 
@@ -56,12 +56,30 @@ header {
 }
 
 .header-title {
-  padding-top: 0.35em;
+  // padding-top: 0.5em;
   font-size: 1.125rem;
+  line-height: 55px;
+}
+
+.head-button {
+  background-color: red;
+  background: none;
+  border: none;
+  display: block;
+  height: 55px;
+  width: 55px;
+  font-size: 1.4em;
+  padding: 0;
+  line-height: 1em;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .btn-clear {
-  background: none;
+  // background-color: red;
+  // background: none;
   border: 1px solid white;
   vertical-align: bottom;
   padding-bottom: 4px;
@@ -81,7 +99,7 @@ header {
 .wrapper {
   background-color: #fff;
   padding: 1px 0;
-  padding-bottom: 45px;
+  padding-bottom: 55px;
 }
 
 .options, .debug {
@@ -115,8 +133,8 @@ header {
   float: left;
   width: 50%;
   text-align: center;
-  padding: 0.6em;
-  padding-bottom: 0.4em;
+  padding: 0.5em;
+  // padding-bottom: 0.4em;
 
   &:focus {
     outline: none;
@@ -247,7 +265,7 @@ header {
       width: 33.33333%;
     }
 
-    &:not(.playing) {
+    &:not(.playing), &.missed {
       display: none;
     }
   }
@@ -332,6 +350,7 @@ header {
   }
 
   .type-labels &, .type-colours & {
+    background-color: #333;
     &.two { background-color: #e4131d; }
     &.three { background-color: #13e41d; }
     &.i3d { background-color: #131de4; }
@@ -352,4 +371,6 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
+  height: 55px;
+  line-height: 55px;
 }
