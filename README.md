@@ -1,7 +1,6 @@
-# Cineworld Cinema Times
+# Cineworld One v2 - Projectionist
 
 A minimal site for current film times at Cineworld
-
 
 ## Marquee
 
