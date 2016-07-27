@@ -1,0 +1,28 @@
+<div class="film" ng-class-even="'even'">
+  <div class="film-frame">
+    <div class="film-poster" style="background-image: url({{film.poster}});"></div>
+    <div class="film-overlay">
+      <button class="btn btn-clear" ng-click="toggleHidden(film)">
+        <span class="glyphicon" aria-hidden="true" 
+          ng-class="{'glyphicon-eye-open': film.hidden, 'glyphicon-eye-close': !film.hidden}"></span>
+      </button>
+    </div>
+  </div>
+  <div>
+    <div class="film-title">{{film.title}}</div>
+    <div class="type-tabs">
+      <div ng-repeat="(name, type) in film.types" class="type-tab {{name}}" 
+        ng-style="{width: 100 / objl(film.types) + '%'}">
+        <span class="type-label">{{type.name}}</span>
+      </div>
+    </div>
+    <div ng-repeat="type in film.types" class="film-shows">
+      <div>{{type.name}}</div>
+      <div>
+        <div class="btn btn-default" ng-repeat="show in shows">
+          {{show.time}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
