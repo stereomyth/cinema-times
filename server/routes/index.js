@@ -8,7 +8,7 @@ var request = require('request');
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/api', function(req, res, next) {
 
 
   // db.list(function(err, body){
@@ -22,16 +22,16 @@ router.get('/', function(req, res, next) {
   //   console.log(body);
   // }); 
 
-  request('http://www.cineworld.co.uk/api/quickbook/cinemas?key=TNk2:R3P', function (error, response, body) {
-    if (!error && response.statusCode == 200) {
+  // request('http://www.cineworld.co.uk/api/quickbook/cinemas?key=TNk2:R3P', function (error, response, body) {
+  //   if (!error && response.statusCode == 200) {
 
-      db.insert(JSON.parse(body), 'cinemas');
-      // db.insert(body.cinemas, 'cinemas');
-      res.render('index', { title: req.params.cheese, response: body });
-    }
-  })
+  //     db.insert(JSON.parse(body), 'cinemas');
+  //     // db.insert(body.cinemas, 'cinemas');
+  //     res.render('index', { title: req.params.cheese, response: body });
+  //   }
+  // })
 
-  // res.render('index', { title: req.params.cheese, response: body });
+  res.render('index', { title: req.params.cheese });
   // res.render('index', { title: req.params.cheese, response: body });
 
 });
