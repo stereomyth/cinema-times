@@ -32,12 +32,6 @@ var getCinemas = function (res, rev) {
 
 };
 
-var stale = function (date) {
-  // if (moment(date).diff(moment()))
-
-  return false;
-};
-
 router.get('/', function(req, res, next) {
 
   // if no doc or out of date get cinemas otherwise send cinemas
