@@ -16,6 +16,7 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "moment": "^2.15.1",
     "nano": "^6.2.0",
     "request": "^2.75.0"
   }
