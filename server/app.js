@@ -15,13 +15,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname, 'app', 'favicon.ico')));
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'app')));
 
 app.use('/', routes);
 app.use('/users', users);
@@ -32,21 +31,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
-var nano = require('nano')('http://localhost:5984');
-var db = nano.db.use('cw-one');
-
-// db.list(function(err, body){
-//   // console.log(body.rows);
-//   body.rows.forEach(function(doc) {
-//     console.log(doc.cheese);
-//   });
-// });
-
-// // db.insert({cheese: 'bree', pope: 'micheal'}, 'bree');
-// db.get('bree', function (err, body) {
-//   console.log(body);
-// }); 
 
 // error handlers
 

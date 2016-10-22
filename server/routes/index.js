@@ -1,38 +1,56 @@
 var express = require('express');
 var router = express.Router();
 
-var nano = require('nano')('http://localhost:5984');
-var db = nano.db.use('cw-one');
-
 var request = require('request');
 
+var nano = require('nano')('http://localhost:5984');
+var db = nano.db.use('cineworld-one');
 
 /* GET home page. */
-router.get('/api', function(req, res, next) {
+router.get('/', function(req, res, next) {
+  var cinemas, events;
 
+  // request('http://www.cineworld.co.uk/api/quickbook/events?key=TNk2:R3P', function (error, response, body) {
+  // request('http://www.cineworld.co.uk/api/quickbook/cinemas?key=TNk2:R3P', function (error, response, body) {
+    // console.log(body);
+    db.get('cinemas', function(err, body) {
+      cinemas = body.cinemas;
+      doRender();
+    });
 
-  // db.list(function(err, body){
-  //   // console.log(body.rows);
-  //   body.rows.forEach(function(doc) {
-  //     console.log(doc.cheese);
-  //   });
+    db.get('events', function(err, body) {
+      events = body.events;
+      doRender();
+    });
+
+      // db.insert(JSON.parse(body), 'events', function (err) {
+        // console.log(err);
+      // });
+      // res.render('index', {cinemas: body.cinemas, events: body.events});
+      // res.render('index', { title: 'Express', dump: JSON.stringify(body) });
+      // console.log
+    // if (!error && response.statusCode == 200) {
+    // res.render('index', {dump: JSON.stringify(body)});
   // });
 
-  // db.get('bree', function (err, body) {
-  //   console.log(body);
-  // }); 
+  var doRender = function () {
+    if (cinemas && events) {
+      res.render('index', {cinemas: cinemas, events: events});
+    }
+  }
 
-  // request('http://www.cineworld.co.uk/api/quickbook/cinemas?key=TNk2:R3P', function (error, response, body) {
-  //   if (!error && response.statusCode == 200) {
-
-  //     db.insert(JSON.parse(body), 'cinemas');
-  //     // db.insert(body.cinemas, 'cinemas');
+  // db.get('')
+  // var dump = db.get('test1');
+      // db.insert({test: 3}, 'test2');
+      // db.insert(body.cinemas, 'cinemas');
   //     res.render('index', { title: req.params.cheese, response: body });
-  //   }
-  // })
 
-  res.render('index', { title: req.params.cheese });
-  // res.render('index', { title: req.params.cheese, response: body });
+  // db.get('test1', function(err, body) {
+  //   res.render('index', { title: 'Express', dump: JSON.stringify(body) });
+  // });
+      // res.render('index', { title: 'Express', response: JSON.parse(body).cinemas });
+    // }
+
 
 });
 

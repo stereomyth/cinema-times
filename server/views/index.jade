@@ -1,9 +1,13 @@
 extends layout
 
 block content
-  h3 Cineworld One Api
-  p routes
-  ul
-    li cinemas
-    li films
-  div= response
+
+  .col
+    h1 Cinemas
+    each cinema in cinemas
+      div= cinema.name
+      
+  .col
+    h1 Events
+    each event in events
+      div= event.name
