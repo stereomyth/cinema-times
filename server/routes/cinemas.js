@@ -5,7 +5,7 @@ var moment = require('moment');
 var nano = require('nano')('http://localhost:5984');
 var db = nano.db.use('cineworld-one');
 
-var api = require('../api.js');
+var api = require('../api/api.js');
 
 
 var getCinemas = function (res, rev) {

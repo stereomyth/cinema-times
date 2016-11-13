@@ -6,7 +6,7 @@ var moment = require('moment');
 var nano = require('nano')('http://localhost:5984');
 var db = nano.db.use('cineworld-one');
 
-var api = require('../api.js');
+var api = require('../api/api.js');
 
 let films = [];
 let events;
@@ -72,9 +72,13 @@ let buildFilm = (inFilm, index) => {
     type: 'film',
     _id: '' + inFilm.edi,
     title: inFilm.title,
-    variant: 'two'
+    variant: 'two',
+    cinemas: {}
     // isEvent: isEvent(inFilm.title),
   }
+
+  film.cinemas[req.query.cinema] = [];
+
 
   for (variant in reg) {
     if (reg[variant].test(inFilm.title)) {
