@@ -24,8 +24,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/films', films);
-app.use('/cinemas', cinemas);
+app.use('/api/films', films);
+app.use('/api/cinemas', cinemas);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
