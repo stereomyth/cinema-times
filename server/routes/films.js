@@ -1,81 +1,170 @@
 var express = require('express');
 var router = express.Router();
+var moment = require('moment');
+
 
 var nano = require('nano')('http://localhost:5984');
 var db = nano.db.use('cineworld-one');
 
 var api = require('../api.js');
 
-router.get('/', function(req, res, next) {
+let films = [];
+let events;
 
-  // api('films', function (error, response, body) {
-  //   db.insert(JSON.parse(body), 'films', function (err) {
-  //     console.log(err);
-  //   });
-  // });
+let stamps = (name, time) => {
+  return new Promise((resolve, reject) => {
 
-  let films = [];
-  let events;
+    db.get('stamps', (err, body) => {
+      if (!err) {
 
-  let isEvent = title => {
-    for (var i = 0; i < events.length; i++) {
-      if (events[i].name === title) {
-        console.log(i);
-        events.splice(i, 1);
-        return true;
-      }
-    }
-  };
+        if (time) {
+          body[name] = time;
 
-  let buildFilm = (inFilm, index) => {
-    let film = {
-      title: inFilm.title,
-      isEvent: isEvent(inFilm.title),
-    }
+          db.insert(body, err => {
+            if (!err) {
+              resolve(true);
+            } else {
+              reject(err);
+            }
+          });
 
-    // events.forEach(function (event, index) {
-    //   if (event.name === inFilm.title) {
-    //     events.splice(index, 1);
-    //     films.isEvent = true;
-    //     skip = true;
-    //   }
-    // });
+        } else {
+          if (body[name]) {
+            resolve(body[name]);
+          } else {
+            resolve(moment('1995-12-25'));
+          }
+        }
 
-    if (!film.event) {
-      if (/^\([23][dD]\) /.test(inFilm.title) || /^\(IMAX ?3?-?[dD]?\) /.test(inFilm.title)) {
-        films.push(film);
-        // type: 
       } else {
-        films.push(film);
+        reject(err);
       }
+
+    });
+
+  });
+};
+
+let isEvent = title => {
+  for (var i = 0; i < events.length; i++) {
+    if (events[i].name === title) {
+      // console.log(i);
+      events.splice(i, 1);
+      return true;
+    }
+  }
+};
+
+let reg = {
+  three: /^\(3[dD]\) /,
+  imax: /^\(IMAX\) /,
+  two: /^\(2[dD]\) /,
+  i3d: /^\(IMAX ?3?-?[dD]?\) /,
+  unlimited: / ?:? ?Unlimited (Card )?Screening/,
+  dubbed: / ?\[Dubbed Version\]/,
+  m4j: /^M4J /,
+  afs: /^Autism Friendly Screening: /,
+  classic: / \(Film Classics\)/
+};
+
+let buildFilm = (inFilm, index) => {
+  let film = {
+    type: 'film',
+    _id: '' + inFilm.edi,
+    title: inFilm.title,
+    variant: 'two'
+    // isEvent: isEvent(inFilm.title),
+  }
+
+  for (variant in reg) {
+    if (reg[variant].test(inFilm.title)) {
+      film.title = inFilm.title.replace(reg[variant], '');
+      film.oldName = inFilm.title;
+      break;
     }
   }
 
-  db.get('events', function (err, body) {
-    if (!err) {
-      events = body.events;
-    } else {
-      console.log(err);
+  db.get(film._id, (err, body) => {
+    if(!err) {
+      film._rev = body._rev;
     }
-  })
+    db.insert(film, (err, body) => {
+      if(err) {
+        console.log(err);
+      }
+    });
+  });
 
-  db.get('films', function (err, body) {
-    if (!err) {
-      body.films.forEach(buildFilm);
+  films.push(film);
+}
+
+router.get('/', function(req, res, next) {
+
+  stamps('films' + req.query.cinema).then(function (response) {
+    if (moment(response).isAfter(moment().subtract(12, 'hours'))) {
+      console.log('get local films  ------------------');
+
+      // use local films
+      db.view('films', 'all', function (err, body) {
+        if (!err) {
+          res.send(body);
+        }
+      });
+
+    } else {
+
+      // get remote films
+      console.log('get remote films ------------------');
+      api({uri: 'films', qs: {full: true, cinema: req.query.cinema}}, function (error, response, body) {
+        body.films.forEach(buildFilm);
+        res.send(films);
+        stamps('films' + req.query.cinema, moment());
+      });
+
+    }
+  }, function (error) {
+    res.send(error);
+  });
+
+
+  // films = [];
+
+  // db.get('events', function (err, body) {
+  //   if (!err) {
+  //     events = body.events;
+  //   } else {
+  //     console.log(err);
+  //   }
+  // })
+
+  // db.view('films', 'all', function (err, body) {
+  //   if (!err) {
+  //     // console.log(body);
+
+  //     body.rows.forEach(function (thing) {
+  //       db.destroy(thing.id, thing.value.rev);
+  //     });
+  //     res.send(body);
+  //   }
+  // });
+
+  // db.get('films', function (err, body, headers) {
+  //   if (!err) {
+  //     body.films.forEach(buildFilm);
     
 
-      // db.bulk({ docs: [] }, function (err, body) {
-      //   if (!err) {
-      //     res.send(body);
-      //   } else {
-      //     res.send(err);
-      //   }
-      // });
-      res.send(films);
-    } else {
-      console.log(err);
-    }
-  });
+  //   //   db.bulk({ docs: films }, function (err, body) {
+  //   //     if (!err) {
+  //         // res.send(films);
+  //         res.send(headers);
+  //   //     } else {
+  //   //       res.send(err);
+  //   //     }
+  //   //   });
+  //   } else {
+  //     console.log(err);
+  //   }
+  // });
 
 });
 
