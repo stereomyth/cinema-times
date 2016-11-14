@@ -5,7 +5,7 @@ var nano = require('nano')('http://localhost:5984');
 var db = nano.db.use('cineworld-one');
 
 
-let events, todayFilms;
+let eventFilms, todayFilms;
 
 let psudoGet = (name, query = {}, type) => {
   return new Promise ((resolve, reject) => {
@@ -47,11 +47,10 @@ let apiToday = (cinema) => {
   return psudoGet('today', {full: true, cinema: cinema, date: moment().format('YYYYMMDD')}, 'films');
 };
 
-let eventCheck = title => {
-  for (var i = 0; i < events.length; i++) {
-    if (events[i].name === title) {
-      // console.log(i);
-      events.splice(i, 1);
+let arrayCompare = (comparator, array) => {
+  for (var i = 0; i < array.length; i++) {
+    if (array[i] === comparator) {
+      array.splice(i, 1);
       return true;
     }
   }
