@@ -7,68 +7,42 @@ var db = nano.db.use('cineworld-one');
 
 let films = [], inFilms, events, todayFilms;
 
-let apiEvents = () => {
+let psudoGet = (name, type, query = {}) => {
   return new Promise ((resolve, reject) => {
 
-    db.get('events', (err, body) => {
+    db.get(name, (err, body) => {
       if (!err) {
-        resolve(body.events);
+        resolve(body[type || name]);
       } else {
-        reject(err);
+        api({uri: (type || name), qs: query}, (error, response, body) => {
+          if (!error) {
+            db.insert(body, name, (err) => {
+              if (!err) {
+                resolve(body[type || name]);
+              } else {
+                reject(err);
+              }
+            });
+          } else {
+            reject(err);
+          }
+        });
       }
     });
 
-    // api({uri: 'events'}, (error, response, body) => {
-    //   if (!error) {
-    //   }
-    // });
   });
+};
+
+let apiEvents = () => {
+  return psudoGet('events');
 };
 
 let apiFilms = (cinema) => {
-  return new Promise ((resolve, reject) => {
-
-    db.get('films', (err, body) => {
-      if (!err) {
-        resolve(body.films);
-      } else {
-        reject(err);
-      }
-    });
-
-    // api({uri: 'films', qs: {full: true, cinema: cinema}}, (error, response, body) => {
-    //   if (!error) {
-    //     db.insert(body, 'films', (err) => {
-    //       reject(err);
-    //     });
-    //   }
-    // });
-  });
+  return psudoGet('films', 'films', {full: true, cinema: cinema});
 };
 
 let apiToday = (cinema) => {
-  return new Promise ((resolve, reject) => {
-
-    db.get('today', (err, body) => {
-      if (!err) {
-        resolve(body.films);
-      } else {
-        reject(err);
-      }
-    });
-
-    // api({uri: 'films', qs: {full: true, cinema: cinema, date: moment().format('YYYYMMDD')}}, (error, response, body) => {
-    //   if (!error) {
-    //     console.log(body.films[0]);
-    //     db.insert(body, 'today', (err) => {
-    //       reject(err);
-    //     });
-    //     // resolve(body.films);
-    //   } else {
-    //     reject(error);
-    //   }
-    // });
-  });
+  return psudoGet('today', 'films', {full: true, cinema: cinema, date: moment().format('YYYYMMDD')});
 };
 
 let eventCheck = title => {
