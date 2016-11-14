@@ -5,15 +5,16 @@ var nano = require('nano')('http://localhost:5984');
 var db = nano.db.use('cineworld-one');
 
 
-let films = [], inFilms, events, todayFilms;
+let events, todayFilms;
 
-let psudoGet = (name, type, query = {}) => {
+let psudoGet = (name, query = {}, type) => {
   return new Promise ((resolve, reject) => {
 
     db.get(name, (err, body) => {
       if (!err) {
         resolve(body[type || name]);
       } else {
+
         api({uri: (type || name), qs: query}, (error, response, body) => {
           if (!error) {
             db.insert(body, name, (err) => {
@@ -27,6 +28,7 @@ let psudoGet = (name, type, query = {}) => {
             reject(err);
           }
         });
+
       }
     });
 
@@ -38,11 +40,11 @@ let apiEvents = () => {
 };
 
 let apiFilms = (cinema) => {
-  return psudoGet('films', 'films', {full: true, cinema: cinema});
+  return psudoGet('films', {full: true, cinema: cinema});
 };
 
 let apiToday = (cinema) => {
-  return psudoGet('today', 'films', {full: true, cinema: cinema, date: moment().format('YYYYMMDD')});
+  return psudoGet('today', {full: true, cinema: cinema, date: moment().format('YYYYMMDD')}, 'films');
 };
 
 let eventCheck = title => {
@@ -73,12 +75,9 @@ let buildFilm = inFilm => {
     _id: '' + inFilm.edi,
     poster: inFilm.poster_url,
     variant: '2D',
-    // cinemas: {},
     isEvent: eventCheck(inFilm.title),
     type: 'film'
   }
-
-  // film.cinemas[req.query.cinema] = [];
 
   for (variant in regex) {
     if (regex[variant].test(inFilm.title)) {
@@ -100,7 +99,8 @@ let buildFilm = inFilm => {
   //   });
   // });
 
-  films.push(film);
+  // films.push(film);
+  return film;
 }
 
 let getFilms = (cinema) => {
@@ -111,14 +111,13 @@ let getFilms = (cinema) => {
       results => {
         [inFilms, events, todayFilms] = results;
 
-        inFilms.forEach(buildFilm);
-
-        resolve(films);
-      },
-      error => {
-        reject(error);
+        return inFilms;
       }
-    );
+    ).then(
+      films => {
+        return Promise.all(films.map(buildFilm)).then(resolve);
+      }
+    ).catch(reject);
 
 
   });
