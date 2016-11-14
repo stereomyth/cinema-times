@@ -7,6 +7,7 @@ var nano = require('nano')('http://localhost:5984');
 var db = nano.db.use('cineworld-one');
 
 var api = require('../api/api.js');
+var getFilms = require('../api/getFilms.js');
 
 let films = [];
 let events;
@@ -104,31 +105,35 @@ let buildFilm = (inFilm, index) => {
 
 router.get('/', function(req, res, next) {
 
-  stamps('films' + req.query.cinema).then(function (response) {
-    if (moment(response).isAfter(moment().subtract(12, 'hours'))) {
-      console.log('get local films  ------------------');
+  // stamps('films' + req.query.cinema).then(function (response) {
+  //   if (moment(response).isAfter(moment().subtract(12, 'hours'))) {
+  //     console.log('get local films  ------------------');
 
-      // use local films
-      db.view('films', 'all', function (err, body) {
-        if (!err) {
-          res.send(body);
-        }
-      });
+  //     // use local films
+  //     db.view('films', 'all', function (err, body) {
+  //       if (!err) {
+  //         res.send(body);
+  //       }
+  //     });
 
-    } else {
+  //   } else {
 
       // get remote films
-      console.log('get remote films ------------------');
-      api({uri: 'films', qs: {full: true, cinema: req.query.cinema}}, function (error, response, body) {
-        body.films.forEach(buildFilm);
-        res.send(films);
-        stamps('films' + req.query.cinema, moment());
-      });
+      getFilms(req.query.cinema).then(
+        response => {
+          res.send(response);
+        },
+        error => {
+          res.send(error);
+        } 
+      );
 
-    }
-  }, function (error) {
-    res.send(error);
-  });
+      // getFilms();
+
+  //   }
+  // }, function (error) {
+  //   res.send(error);
+  // });
 
 
   // films = [];

@@ -1,6 +1,6 @@
-var request = require('request');
+let request = require('request');
 
-var api = request.defaults({
+let api = request.defaults({
   baseUrl: 'http://www.cineworld.co.uk/api/quickbook/',
   json: true,
   qs: {
