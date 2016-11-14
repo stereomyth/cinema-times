@@ -47,13 +47,19 @@ let stamps = (name, time) => {
 };
 
 router.get('/', function(req, res, next) {
+  res.send({
+    error: 'cinema id is required: api/films/[cinemaId]'
+  });
+});
 
-  // stamps('films' + req.query.cinema).then(function (response) {
+router.get('/:cinemaId', function(req, res, next) {
+
+  // stamps('films' + req.params.cinema).then(function (response) {
   //   if (moment(response).isAfter(moment().subtract(12, 'hours'))) {
   //     console.log('get local films  ------------------');
 
       // use local films
-      // db.view('films', 'all', function (err, body) {
+      // db.view('films', 'all', function (err, fbody) {
       //   if (!err) {
       //     res.send(body);
       //   }
@@ -64,7 +70,7 @@ router.get('/', function(req, res, next) {
     // } else {
 
       // get remote films
-      getFilms(req.query.cinema).then(
+      getFilms(req.params.cinemaId).then(
         response => {
           res.send(response);
         },
