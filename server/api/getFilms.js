@@ -69,37 +69,47 @@ let regex = {
 };
 
 let buildFilm = inFilm => {
-  let film = {
-    title: inFilm.title,
-    _id: '' + inFilm.edi,
-    poster: inFilm.poster_url,
-    variant: '2D',
-    isEvent: eventCheck(inFilm.title),
-    type: 'film'
-  }
+  return new Promise((resolve, reject) => {
 
-  for (variant in regex) {
-    if (regex[variant].test(inFilm.title)) {
-      film.title = inFilm.title.replace(regex[variant], '');
-      film.variant = variant;
-      film.oldName = inFilm.title;
-      break;
+    let film = {
+      title: inFilm.title,
+      _id: '' + inFilm.edi,
+      poster: inFilm.poster_url,
+      variant: '2D',
+      isEvent: arrayCompare(inFilm.title, eventFilms),
+      type: 'film'
     }
-  }
 
-  // db.get(film._id, (err, body) => {
-  //   if(!err) {
-  //     film._rev = body._rev;
-  //   }
-  //   db.insert(film, (err, body) => {
-  //     if(err) {
-  //       console.log(err);
-  //     }
-  //   });
-  // });
+    for (variant in regex) {
+      if (regex[variant].test(inFilm.title)) {
+        film.title = inFilm.title.replace(regex[variant], '');
+        film.variant = variant;
+        film.oldName = inFilm.title;
+        break;
+      }
+    }
 
-  // films.push(film);
-  return film;
+    if (arrayCompare(inFilm.edi, todayFilms)) {
+      console.log('today -->', film.title);
+      // get film times from api
+    } else {
+      // dont
+    }
+
+    db.get(film._id, (err, body) => {
+      if(!err) {
+        film._rev = body._rev;
+      }
+      db.insert(film, (err, body) => {
+        if(!err) {
+          resolve(film);
+        } else {
+          reject(err);
+        }
+      });
+    });
+
+  });
 }
 
 let getFilms = (cinema) => {
@@ -108,7 +118,10 @@ let getFilms = (cinema) => {
     console.log('get remote films ------------------');
     Promise.all([apiFilms(cinema), apiEvents(), apiToday(cinema)]).then(
       results => {
-        [inFilms, events, todayFilms] = results;
+        [inFilms, eventFilms, todayFilms] = results;
+
+        todayFilms = todayFilms.map(film => film.edi);
+        eventFilms = eventFilms.map(film => film.name);
 
         return inFilms;
       }
