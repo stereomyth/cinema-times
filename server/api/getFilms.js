@@ -5,7 +5,7 @@ var nano = require('nano')('http://localhost:5984');
 var db = nano.db.use('cineworld-one');
 
 
-let eventFilms, todayFilms;
+let eventFilms, todayFilms, cinemaId, today = moment().format('YYYYMMDD');
 
 let psudoGet = (name, query = {}, type) => {
   return new Promise ((resolve, reject) => {
@@ -33,18 +33,6 @@ let psudoGet = (name, query = {}, type) => {
     });
 
   });
-};
-
-let apiEvents = () => {
-  return psudoGet('events');
-};
-
-let apiFilms = (cinema) => {
-  return psudoGet('films', {full: true, cinema: cinema});
-};
-
-let apiToday = (cinema) => {
-  return psudoGet('today', {full: true, cinema: cinema, date: moment().format('YYYYMMDD')}, 'films');
 };
 
 let arrayCompare = (comparator, array) => {
@@ -77,6 +65,7 @@ let buildFilm = inFilm => {
       poster: inFilm.poster_url,
       variant: '2D',
       isEvent: arrayCompare(inFilm.title, eventFilms),
+      screenings: {},
       type: 'film'
     }
 
@@ -84,21 +73,22 @@ let buildFilm = inFilm => {
       if (regex[variant].test(inFilm.title)) {
         film.title = inFilm.title.replace(regex[variant], '');
         film.variant = variant;
-        film.oldName = inFilm.title;
+        film.oldTitle = inFilm.title;
         break;
       }
-    }
-
-    if (arrayCompare(inFilm.edi, todayFilms)) {
-      console.log('today -->', film.title);
-      // get film times from api
-    } else {
-      // dont
     }
 
     db.get(film._id, (err, body) => {
       if(!err) {
         film._rev = body._rev;
+
+        if (arrayCompare(inFilm.edi, todayFilms)) {
+          console.log('today -->', film.title);
+          // get film times from api
+
+          film.screenings[today] = body.screenings[today] || {};
+          film.screenings[today][cinemaId] = {some: 'times'};
+        }
       }
       db.insert(film, (err, body) => {
         if(!err) {
@@ -114,11 +104,16 @@ let buildFilm = inFilm => {
 
 let getFilms = (cinema) => {
   return new Promise((resolve, reject) => {
+    cinemaId = cinema;
 
     console.log('get remote films ------------------');
-    Promise.all([apiFilms(cinema), apiEvents(), apiToday(cinema)]).then(
+    Promise.all([
+      psudoGet('events'),
+      psudoGet('films', {full: true, cinema: cinema}),
+      psudoGet('today', {full: true, cinema: cinema, date: today}, 'films')
+    ]).then(
       results => {
-        [inFilms, eventFilms, todayFilms] = results;
+        [eventFilms, inFilms, todayFilms] = results;
 
         todayFilms = todayFilms.map(film => film.edi);
         eventFilms = eventFilms.map(film => film.name);
