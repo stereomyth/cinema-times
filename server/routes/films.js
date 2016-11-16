@@ -59,25 +59,26 @@ router.get('/:cinemaId', function(req, res, next) {
   //     console.log('get local films  ------------------');
 
       // use local films
-      // db.view('films', 'all', function (err, fbody) {
-      //   if (!err) {
-      //     res.send(body);
-      //   }
-      // });
+      db.view('films', 'all', function (err, body) {
+        if (!err) {
+          res.send(body);
+        } else {
+          res.send(err);
+        }
+      });
+
+
 
       // res.send('local films!');
 
     // } else {
 
       // get remote films
-      getFilms(req.params.cinemaId).then(
-        response => {
-          res.send(response);
-        },
-        error => {
-          res.send(error);
-        } 
-      );
+      // getFilms(req.params.cinemaId).then(
+      //   response => {
+      //     res.send(response);
+      //   }
+      // ).catch(error => res.send(error));
 
     // }
   // }).catch(error => {
