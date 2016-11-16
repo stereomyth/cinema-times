@@ -15,19 +15,17 @@ let psudoGet = (name, query = {}, type) => {
         resolve(body[type || name]);
       } else {
 
-        api({uri: (type || name), qs: query}, (error, response, body) => {
-          if (!error) {
-            db.insert(body, name, (err) => {
-              if (!err) {
-                resolve(body[type || name]);
-              } else {
-                reject(err);
-              }
-            });
-          } else {
-            reject(err);
-          }
-        });
+        api(type || name, query).then(json => {
+
+          db.insert(json, name, (err) => {
+            if (!err) {
+              resolve(json[type || name]);
+            } else {
+              reject(err);
+            }
+          });
+
+        }).catch(reject);
 
       }
     });

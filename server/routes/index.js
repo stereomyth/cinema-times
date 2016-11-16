@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-var request = require('request');
-
 var nano = require('nano')('http://localhost:5984');
 var db = nano.db.use('cineworld-one');
 
