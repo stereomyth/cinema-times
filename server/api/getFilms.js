@@ -63,7 +63,6 @@ let buildFilm = inFilm => {
       poster: inFilm.poster_url,
       variant: '2D',
       isEvent: arrayCompare(inFilm.title, eventFilms),
-      screenings: {},
       type: 'film'
     }
 
@@ -84,8 +83,10 @@ let buildFilm = inFilm => {
           console.log('today -->', film.title);
           // get film times from api
 
-          film.screenings[today] = body.screenings[today] || {};
-          film.screenings[today][cinemaId] = {some: 'times'};
+          film.screenings = body.screenings || {};
+          film.screenings[cinemaId] = {screenings: 'for ' + cinemaId};
+          // film.screenings[today] = body.screenings[today] || {};
+          // film.screenings[today][cinemaId] = {some: 'times'};
         }
       }
       db.insert(film, (err, body) => {
