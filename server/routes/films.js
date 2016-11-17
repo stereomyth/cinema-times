@@ -52,16 +52,38 @@ router.get('/', function(req, res, next) {
   });
 });
 
+let flatten = (film, cinema) => {
+  film.variants[0].screenings = film.variants[0].screenings[cinema];
+
+  if (films.length && film.title === films[films.length -1].title) {
+    films[films.length -1].variants.push(film.variants[0]);
+  } else {
+    films.push(film);
+  }
+
+};
+
 router.get('/:cinemaId', function(req, res, next) {
 
   // stamps('films' + req.params.cinema).then(function (response) {
   //   if (moment(response).isAfter(moment().subtract(12, 'hours'))) {
   //     console.log('get local films  ------------------');
 
+      films = [];
+
       // use local films
-      db.view('films', 'all', function (err, body) {
+      let params = {
+        startkey: [req.params.cinemaId, 0], 
+        endkey: [req.params.cinemaId + 1, 0]
+      };
+
+      db.view('films', 'all', params, function (err, body, headers) {
         if (!err) {
-          res.send(body);
+          body.rows.forEach( row => {
+            flatten(row.value, req.params.cinemaId);
+          });
+
+          res.send(films);
         } else {
           res.send(err);
         }
