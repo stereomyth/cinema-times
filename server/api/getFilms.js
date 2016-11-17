@@ -1,36 +1,20 @@
 var moment = require('moment');
 var api = require('../api/api.js');
-
-var nano = require('nano')('http://localhost:5984');
-var db = nano.db.use('cineworld-one');
+let tiny = require('../couch/promises.js');
 
 
 let eventFilms, todayFilms, cinemaId, today = moment().format('YYYYMMDD');
 
 let psudoGet = (name, query = {}, type) => {
-  return new Promise ((resolve, reject) => {
-
-    db.get(name, (err, body) => {
-      if (!err) {
-        resolve(body[type || name]);
-      } else {
-
-        api(type || name, query).then(json => {
-
-          db.insert(json, name, (err) => {
-            if (!err) {
-              resolve(json[type || name]);
-            } else {
-              reject(err);
-            }
-          });
-
-        }).catch(reject);
-
-      }
+  return tiny.get(name).then(response => {
+    return response[type || name];
+  }, error => {
+    return api(type || name, query).then(json => {
+      return tiny.insert(json, name).then(body => {
+        return json[type || name];
+      })
     });
-
-  });
+  })
 };
 
 let arrayCompare = (comparator, array) => {
@@ -55,49 +39,38 @@ let regex = {
 };
 
 let buildFilm = inFilm => {
-  return new Promise((resolve, reject) => {
+  let film = {
+    title: inFilm.title,
+    _id: '' + inFilm.edi,
+    poster: inFilm.poster_url,
+    variant: '2D',
+    isEvent: arrayCompare(inFilm.title, eventFilms),
+    type: 'film'
+  }
 
-    let film = {
-      title: inFilm.title,
-      _id: '' + inFilm.edi,
-      poster: inFilm.poster_url,
-      variant: '2D',
-      isEvent: arrayCompare(inFilm.title, eventFilms),
-      type: 'film'
+  for (variant in regex) {
+    if (regex[variant].test(inFilm.title)) {
+      film.title = inFilm.title.replace(regex[variant], '');
+      film.variant = variant;
+      film.oldTitle = inFilm.title;
+      break;
     }
+  }
 
-    for (variant in regex) {
-      if (regex[variant].test(inFilm.title)) {
-        film.title = inFilm.title.replace(regex[variant], '');
-        film.variant = variant;
-        film.oldTitle = inFilm.title;
-        break;
-      }
+  return tiny.get(film._id).then(dbFilm => {
+    film._rev = dbFilm._rev;
+
+    if (arrayCompare(inFilm.edi, todayFilms)) {
+      console.log('today -->', film.title);
+      // get film times from api
+
+      film.screenings = dbFilm.screenings || {};
+      film.screenings[cinemaId] = {screenings: 'for ' + cinemaId};
     }
-
-    db.get(film._id, (err, body) => {
-      if(!err) {
-        film._rev = body._rev;
-
-        if (arrayCompare(inFilm.edi, todayFilms)) {
-          console.log('today -->', film.title);
-          // get film times from api
-
-          film.screenings = body.screenings || {};
-          film.screenings[cinemaId] = {screenings: 'for ' + cinemaId};
-          // film.screenings[today] = body.screenings[today] || {};
-          // film.screenings[today][cinemaId] = {some: 'times'};
-        }
-      }
-      db.insert(film, (err, body) => {
-        if(!err) {
-          resolve(film);
-        } else {
-          reject(err);
-        }
-      });
-    });
-
+  }).then(thing => {
+    return tiny.insert(film);
+  }).then(stuff => {
+    return film;
   });
 }
 

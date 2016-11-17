@@ -2,10 +2,7 @@ var express = require('express');
 var router = express.Router();
 var moment = require('moment');
 
-
-var nano = require('nano')('http://localhost:5984');
-var db = nano.db.use('cineworld-one');
-
+var tiny = require('../couch/promises.js');
 var api = require('../api/api.js');
 var getFilms = require('../api/getFilms.js');
 
@@ -77,21 +74,15 @@ router.get('/:cinemaId', function(req, res, next) {
         endkey: [req.params.cinemaId + 1, 0]
       };
 
-      db.view('films', 'all', params, function (err, body, headers) {
-        if (!err) {
-          body.rows.forEach( row => {
-            flatten(row.value, req.params.cinemaId);
-          });
+      tiny.view('films', 'all', params).then(body => {
+        body.rows.forEach( row => {
+          flatten(row.value, req.params.cinemaId);
+        });
 
-          res.send(films);
-        } else {
-          res.send(err);
-        }
+        res.send(films);
+      }).catch(error => {
+        res.send(error);
       });
-
-
-
-      // res.send('local films!');
 
     // } else {
 
