@@ -38,40 +38,52 @@ let regex = {
   unlimited: / ?:? ?Unlimited (Card )?Screening/
 };
 
-let buildFilm = inFilm => {
-  let film = {
-    title: inFilm.title,
-    _id: '' + inFilm.edi,
-    poster: inFilm.poster_url,
-    variant: '2D',
-    isEvent: arrayCompare(inFilm.title, eventFilms),
-    type: 'film'
-  }
-
+let checkVariant = film => {
   for (variant in regex) {
-    if (regex[variant].test(inFilm.title)) {
-      film.title = inFilm.title.replace(regex[variant], '');
+    if (regex[variant].test(film.title)) {
+      film.oldTitle = film.title;
+      film.title = film.title.replace(regex[variant], '');
       film.variant = variant;
-      film.oldTitle = inFilm.title;
       break;
     }
   }
+  return film;
+};
 
-  return tiny.get(film._id).then(dbFilm => {
-    film._rev = dbFilm._rev;
+let getScreenings = film => {
+  if (arrayCompare(parseInt(film._id), todayFilms)) {
+    let query = {cinema: cinemaId, film: film._id, date: today};
 
-    if (arrayCompare(inFilm.edi, todayFilms)) {
-      console.log('today -->', film.title);
-      // get film times from api
+    return psudoGet(film.oldTitle || film.title, query, 'performances').then(screenings => {
+      film.screenings[cinemaId][today] = screenings;
 
-      film.screenings = dbFilm.screenings || {};
-      film.screenings[cinemaId] = {screenings: 'for ' + cinemaId};
-    }
-  }).then(thing => {
-    return tiny.insert(film);
-  }).then(stuff => {
+      return film;
+    });
+  } else {
     return film;
-  });
+  }
+};
+
+let buildFilm = inFilm => {
+  return tiny.get(inFilm.edi)
+    .then(dbFilm => {
+      let screenings = dbFilm.screenings || {};
+      screenings[cinemaId] = { updated: moment() };
+
+      return {
+        title: inFilm.title,
+        _id: '' + inFilm.edi,
+        _rev: dbFilm._rev || '',
+        poster: inFilm.poster_url,
+        variant: '2D',
+        isEvent: arrayCompare(inFilm.title, eventFilms),
+        screenings: screenings,
+        type: 'film'
+      }
+    })
+    .then(checkVariant)
+    .then(getScreenings)
+    .then(tiny.insert);
 }
 
 let getFilms = (cinema) => {
