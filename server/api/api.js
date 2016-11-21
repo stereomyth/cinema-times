@@ -4,7 +4,7 @@ let queryString,
   uri = 'http://www.cineworld.co.uk/api/quickbook/',
   queryDefault = { key: 'TNk2:R3P' };
 
-let api = (route, query) => {
+let api = (route, query = {}) => {
   queryString = '?';
 
   query = Object.assign({}, queryDefault, query);
@@ -12,6 +12,7 @@ let api = (route, query) => {
     queryString += `${item}=${query[item]}&`
   }
 
+  console.log('remote -->', route, query);
   return fetch(uri + route + queryString).then(
     response => response.json()
   );
