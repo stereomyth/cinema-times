@@ -27,7 +27,7 @@ let tiny = {
 
       db.insert(doc, name, (err, body) => {
         if (!err) {
-          resolve(body);
+          resolve(doc);
         } else {
           reject(err);
         }
