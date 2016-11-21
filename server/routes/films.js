@@ -21,10 +21,13 @@ let flatten = (film, cinema) => {
   } else {
     films.push(film);
   }
-
 };
 
 router.get('/:cinemaId', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
+  films = [];
 
   tiny.get('stamps').then(stamps => {
     let stamp = stamps['films' + req.params.cinemaId];
@@ -41,7 +44,6 @@ router.get('/:cinemaId', function(req, res, next) {
     view.rows.forEach(row => {
       flatten(row.value, req.params.cinemaId);
     });
-
     res.send(films);
   }).catch(error => res.send(error));
 
