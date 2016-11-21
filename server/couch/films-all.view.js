@@ -8,10 +8,9 @@ function (doc, thing) {
           type: doc.variant,
           edi: doc._id,
           oldTitle: doc.oldTitle,
-          screenings: doc.screenings
-        }]
-      }
-
+          screenings: doc.screenings[cinema]
+        }] 
+      }      
       emit([cinema, doc.title], film);  
     }
   }
