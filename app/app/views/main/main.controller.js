@@ -52,14 +52,14 @@ angular.module('cineworld')
 
     $scope.toggleHidden = film => {
       if (film.hidden) {
-        for (let type in film.types) {
-          remove(film, type);
+        for (let variant in film.variants) {
+          remove(film, variant);
         }
         film.hidden = !film.hidden;
         Shows.film(film);
       } else {
-        for (let type in film.types) {
-          hidden.push(film.types[type].edi);
+        for (let variant in film.variants) {
+          hidden.push(film.variants[variant].edi);
         }
         film.hidden = !film.hidden;
       }
