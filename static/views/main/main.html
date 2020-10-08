@@ -1,0 +1,104 @@
+<header class="clearfix">
+  <div class="pull-left">
+    <button class="head-button" ng-click="options.clean = !options.clean">
+      <span class="glyphicon" aria-hidden="true" 
+        ng-class="{'glyphicon-eye-open': clean, 'glyphicon-eye-close': !clean}"></span>
+    </button>
+  </div>
+  <div class="pull-right">
+    <button class="head-button" ng-click="showOptions = !showOptions">
+      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="header-title">Cineworld <strong>One</strong></div>
+</header>
+<div class="wrapper type-{{options.typeTabs}}" ng-class="{'clean': options.clean}">
+  <div class="container">
+    <!-- TODO: Add intro section -->
+    <!-- TODO: Add premium black theme -->
+    <section class="options" ng-show="showOptions">
+      <p><strong>Cinema</strong></p>
+      <select ng-model="options.cinema" ng-change="selectCinema()" class="form-control"
+        ng-options="cinema.id as cinema.name for cinema in cinemas">
+      </select>
+      <hr>
+      <div>
+        <p><strong>All films type indicator</strong></p>
+        <label class="radio-inline">
+          <input type="radio" name="tab-type" value="colours" ng-model="options.typeTabs"> Colour bars
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="tab-type" value="labels" ng-model="options.typeTabs"> Labels
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="tab-type" value="none" ng-model="options.typeTabs"> None
+        </label>
+      </div>
+      <hr>
+      <div>
+        <button class="btn btn-link" ng-click="debug=!debug">Show debug options</button>
+      </div>
+      <section class="debug" ng-show="debug">
+        <h4>Debug</h4>
+        <div>
+          <button class="btn btn-default" ng-click="clearAll()">Clear all local storage</button>
+        </div>
+        <div>
+          <button class="btn btn-default" ng-click="clearApi()">Clear local api data</button>
+        </div>
+        <div>
+          <button class="btn btn-default" ng-click="clearHidden()">Clear hidden films</button>
+        </div>
+      </section>
+    </section>
+  </div>
+
+  <div class="selector">
+    <div class="selector-button" ng-class="{active: options.panel === 'today'}" 
+      ng-click="options.panel = 'today'">Today</div>
+    <div class="selector-button" ng-class="{active: options.panel === 'all'}" 
+      ng-click="options.panel = 'all'">All Films</div>
+  </div>
+  <!-- TODO: add blank films layout to show before loading -->
+  <section ng-class="options.panel">
+    <div class="container">
+      <div class="row">
+        <div class="film-column" ng-repeat="film in films" ng-class="{ghost: film.hidden, playing: film.today, missed: film.validCount === 0}">
+          <div class="film" data-title="{{film.title}}">
+            <div class="film-frame" ng-click="film.overlay = !film.overlay">
+              <div class="film-poster" style="background-image: url({{film.poster}});"></div>
+              <div class="film-overlay" ng-show="film.overlay || !options.clean">
+                <button class="btn btn-clear" ng-click="toggleHidden(film)">
+                  <span class="glyphicon" aria-hidden="true" 
+                    ng-class="{'glyphicon-eye-open': film.hidden, 'glyphicon-eye-close': !film.hidden}"></span>
+                </button>
+                <div class="overlay-title">{{film.title}}</div>
+              </div>
+            </div>
+            <div>
+              <div class="film-title">{{film.title}}</div>
+              <div class="type-tabs">
+                <div ng-repeat="(name, type) in film.types" class="type-tab {{name}}" 
+                  ng-style="{width: 100 / objl(film.types) + '%'}">
+                  <span class="type-label">{{type.name}}</span>
+                </div>
+              </div>
+              <div ng-repeat="type in film.types" class="film-shows" ng-show="type.shows.length">
+                <div>{{type.name}}</div>
+                <div class="show-row">
+                  <div class="show-time" ng-repeat="show in type.shows">
+                    {{show.time}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+<footer>
+  lost with us
+</footer>
